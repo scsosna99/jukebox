@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+spring:
+  application:
+      name: codecard-controller
+
+jukebox:
+  clientname: digital-jukebox
+  credentials:
+    username: jukebox
+    password: digital99
+  hostname: 10.10.9.27:4040
+  randomcnt: 20
+
+
+management:
+  endpoints:
+    web:
+      exposure
+        include=health,info,sessions

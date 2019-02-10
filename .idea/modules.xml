@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/subsonic-client/client.iml" filepath="$PROJECT_DIR$/subsonic-client/client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/code-card-services/code-card-controller.iml" filepath="$PROJECT_DIR$/code-card-services/code-card-controller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/subsonic-messages/messages.iml" filepath="$PROJECT_DIR$/subsonic-messages/messages.iml" />
+    </modules>
+  </component>
+</project>

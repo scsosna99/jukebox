@@ -1,0 +1,20 @@
+Terse instructuctions for getting subsonic running on RPi's
+-Download latest Raspian (https://www.raspberrypi.org/downloads/raspbian/) and burn image to SD card.  Recommend lite/headless.
+-Boot Raspberry Pi and log in (pi/raspberry)
+-sudo raspi-config
+--navigate to interface options and enbable SSH
+--navigate to audio options, set default audio to headphone jack
+-sudo apt-get upgrade
+-sudo apt-get oracle-java8-jdk
+-sudo apt-get ffmpeg
+-wget https://s3-eu-west-1.amazonaws.com/subsonic-public/download/subsonic-6.1.5.deb
+-sudo dpkg subsonic-6.1.5.deb
+-sudo useradd --system subsonic
+-sudo gpasswd --add subsonic audio
+-sudo vi /etc/default/subsonic
+--increase memory available to subsonic
+--change username to 'subsonic'
+-sudo cd /var/subsonic/transcode && rm ffmpeg ffmeg.orig && ln -s /usr/bin/ffmpeg ffmpeg
+-sudo mkdir /var/music && chown  subsonic:subsonic /var/music
+-sudo systemctl enable subsonic
+-sudo systemctl start subsonic
