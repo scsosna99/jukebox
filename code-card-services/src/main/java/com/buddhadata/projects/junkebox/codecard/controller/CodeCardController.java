@@ -163,10 +163,10 @@ public class CodeCardController {
         try {
             //  Get the current status of the jukebox, which includes the gain.
             JukeboxStatus status = jukeboxStatus();
-            if (jukeboxStatus != null) {
+            if (status != null) {
 
                 //  Determine what the new gain should be
-                Float gain = (status.getGain() > 0.0f) ? 0.0f : 1.0f;
+                Double gain = (status.getGain() > 0.0f) ? 0.0 : 1.0;
 
                 Response<SubsonicResponse> response = jukeboxAction("setGain", null, null, null, gain);
                 if (response.isSuccessful()) {
@@ -174,6 +174,8 @@ public class CodeCardController {
                 } else {
                     toReturn = createResponse(Template.template11, "Error Muting Volume", null, response.errorBody().toString(), Icon.fail, Background.code, BackgroundColor.black);
                 }
+            } else {
+                toReturn = createResponse(Template.template11, "Error Muting Volume", null, "Unable to get status", Icon.fail, Background.code, BackgroundColor.black);
             }
         } catch (IOException ioe) {
             System.out.println ("Exception muting volume: " + ioe);
@@ -404,7 +406,7 @@ public class CodeCardController {
             System.out.println ("Exception setting up retrofit: " + e);
         }
 
-        //  Create the individual services required.
+        //  Create the individual services required
         album = retrofit.create(AlbumSongServices.class);
         jukebox = retrofit.create(JukeboxService.class);
 
