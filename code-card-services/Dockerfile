@@ -1,4 +1,4 @@
-FROM  frolvlad/alpine-oraclejdk8:slim
+FROM  frolvlad/alpine-oraclejdk8-temporary:slim
 VOLUME /tmp
 ARG application
 ADD target/${application}.jar /app.jar
