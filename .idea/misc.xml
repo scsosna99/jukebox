@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/subsonic-messages/pom.xml" />
         <option value="$PROJECT_DIR$/subsonic-client/pom.xml" />
         <option value="$PROJECT_DIR$/code-card-services/pom.xml" />
+        <option value="$PROJECT_DIR$/sdr-random/pom.xml" />
       </list>
     </option>
   </component>

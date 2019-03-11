@@ -17,20 +17,6 @@
       <profile default="true" name="Default" enabled="false">
         <processorPath useClasspath="true" />
       </profile>
-      <profile default="false" name="Annotation profile for client" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="client" />
-      </profile>
-      <profile default="false" name="Annotation profile for messages" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="true" />
-        <module name="messages" />
-      </profile>
       <profile default="false" name="Annotation profile for code-card-services" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -38,11 +24,35 @@
         <processorPath useClasspath="true" />
         <module name="code-card-services" />
       </profile>
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="code-card-controller" />
+        <module name="messages" />
+      </profile>
+      <profile default="false" name="Annotation profile for client" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="client" />
+      </profile>
+      <profile default="false" name="Annotation profile for sdr-random" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="sdr-random" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="client" target="1.8" />
+      <module name="code-card-controller" target="1.8" />
       <module name="code-card-services" target="1.8" />
-      <module name="messages" target="1.8" />
+      <module name="messages" target="1.5" />
+      <module name="sdr-random" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
