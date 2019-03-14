@@ -1,0 +1,20 @@
+server:
+  port: 8080
+
+spring:
+  application:
+      name: type-random
+
+
+jukebox:
+  random:
+    supplier: com.buddhadata.projects.jukebox.random.supplier.type.SdrSupplier
+    sdr:
+      frequency: 92.5
+      pipename: mypipe
+
+management:
+  endpoints:
+    web:
+      exposure
+        include=health,info,sessions

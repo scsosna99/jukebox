@@ -1,13 +1,11 @@
-package com.buddhadata.projects.jukebox.random.sdr;
+package com.buddhadata.projects.jukebox.random.supplier.type;
 
 
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.LongSupplier;
 
 /**
@@ -15,7 +13,7 @@ import java.util.function.LongSupplier;
  * new bits used when generating the random number.  Everything else in the default Random class for generating the random numbers
  * remains the same.
  */
-public class SdrRandom
+public class SdrSupplier
   implements LongSupplier {
 
   /**
@@ -41,12 +39,14 @@ public class SdrRandom
   /**
    * The frequency in which to tune the RTL software-defined radio
    */
-  private final String frequency;
+  @Value("${jukebox.random.type.frequency:92.5}")
+  private String frequency;
 
   /**
    * The pipe from which the random data is read from, i.e., the input from the software-defined radio stream.
    */
-  private final String pipeName;
+  @Value("${jukebox.random.type.pipename:unknown}")
+  private String pipeName;
 
   /**
    * if not otherwise specified, the size of the buffer into which data is read
@@ -59,9 +59,9 @@ public class SdrRandom
    * @param pipeName pipe from which the random data is read from, i.e., the input from the software-defined radio stream.
    * @param bufferSize how big of a circular buffer to create/use
    */
-  public SdrRandom (String frequency,
-                    String pipeName,
-                    int bufferSize) {
+  public SdrSupplier(String frequency,
+                     String pipeName,
+                     int bufferSize) {
 
     super();
 
@@ -76,9 +76,17 @@ public class SdrRandom
    * @param frequency frequency in which to tune the RTL software-defined radio
    * @param pipeName pipe from which the random data is read from, i.e., the input from the software-defined radio stream.
    */
-  public SdrRandom (String frequency,
-                    String pipeName) {
+  public SdrSupplier(String frequency,
+                     String pipeName) {
     this (frequency, pipeName, DEFAULT_BUFFER_SIZE);
+  }
+
+  /**
+   * Default constructor;
+   */
+  public SdrSupplier() {
+    this.bufferSize = DEFAULT_BUFFER_SIZE;
+    this.circular = new byte [bufferSize];
   }
 
   /**
