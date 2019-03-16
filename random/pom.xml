@@ -67,7 +67,7 @@
           <repository>${docker.image.prefix}-${project.artifactId}</repository>
           <buildArgs>
             <application>${project.build.finalName}</application>
-            <mainClass>com.buddhadata.projects.jukebox.random.Application</mainClass>
+<!--            <mainClass>com.buddhadata.projects.jukebox.random.Application</mainClass> -->
           </buildArgs>
         </configuration>
       </plugin>

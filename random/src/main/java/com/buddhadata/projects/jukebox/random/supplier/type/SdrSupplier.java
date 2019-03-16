@@ -2,6 +2,8 @@ package com.buddhadata.projects.jukebox.random.supplier.type;
 
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.Lifecycle;
+import org.springframework.stereotype.Component;
 
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
@@ -13,8 +15,9 @@ import java.util.function.LongSupplier;
  * new bits used when generating the random number.  Everything else in the default Random class for generating the random numbers
  * remains the same.
  */
+@Component
 public class SdrSupplier
-  implements LongSupplier {
+  implements LongSupplier, Lifecycle {
 
   /**
    * boolean for determining whether the thread reading the SDR data should keep working.
@@ -39,13 +42,13 @@ public class SdrSupplier
   /**
    * The frequency in which to tune the RTL software-defined radio
    */
-  @Value("${jukebox.random.type.frequency:92.5}")
+  @Value("${jukebox.random.sdr.frequency:92.5}")
   private String frequency;
 
   /**
    * The pipe from which the random data is read from, i.e., the input from the software-defined radio stream.
    */
-  @Value("${jukebox.random.type.pipename:unknown}")
+  @Value("${jukebox.random.sdr.pipename:unknown}")
   private String pipeName;
 
   /**
@@ -119,26 +122,33 @@ public class SdrSupplier
   }
 
   /**
-   * Start the thread for reading data from the pipe.
+   * Spring Lifecycle: Start the thread for reading data from the pipe.
    */
   public void start () {
+    System.out.println ("Starting SdrSupplier: " );
     reading.set(true);
     new Thread(() -> readData()).start();
   }
 
   /**
-   * Stop the thread for reading data from the pipe.
+   * Spring Lifecycle: Stop the thread for reading data from the pipe.
    */
   public void stop() {
     reading.set(false);
   }
 
   /**
+   * Spring Lifecycle: is the supplier running.
+   * @return
+   */
+  public boolean isRunning () {
+    return reading.get();
+  }
+
+  /**
    * Read the SDR data from the pipe named and stuff it into the buffer.
    */
   private void readData () {
-
-    System.out.println ("Starting thread for reading data");
 
     try (FileInputStream fis = new FileInputStream (pipeName)) {
 
@@ -165,9 +175,9 @@ public class SdrSupplier
       }
 
     } catch (Exception e) {
-      System.out.println ("Exception reading SDR data: " + e);
+      System.out.println ("**** Exception reading SDR data: " + e);
     }
 
-    System.out.println ("Stopping thread for reading data.");
+    System.out.println ("**** Stopping thread for reading data.");
   }
 }

@@ -11,7 +11,7 @@ jukebox:
     supplier: com.buddhadata.projects.jukebox.random.supplier.type.SdrSupplier
     sdr:
       frequency: 92.5
-      pipename: mypipe
+      pipename: /tmp/sdr-random
 
 management:
   endpoints:
