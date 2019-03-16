@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/subsonic-client/client.iml" filepath="$PROJECT_DIR$/subsonic-client/client.iml" />
       <module fileurl="file://$PROJECT_DIR$/code-card-services/code-card-controller.iml" filepath="$PROJECT_DIR$/code-card-services/code-card-controller.iml" />
       <module fileurl="file://$PROJECT_DIR$/subsonic-messages/messages.iml" filepath="$PROJECT_DIR$/subsonic-messages/messages.iml" />
+      <module fileurl="file://$PROJECT_DIR$/random/random.iml" filepath="$PROJECT_DIR$/random/random.iml" />
       <module fileurl="file://$PROJECT_DIR$/sdr-random/sdr-random.iml" filepath="$PROJECT_DIR$/sdr-random/sdr-random.iml" />
     </modules>
   </component>
