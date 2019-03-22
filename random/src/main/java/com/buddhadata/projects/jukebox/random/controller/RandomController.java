@@ -2,6 +2,7 @@ package com.buddhadata.projects.jukebox.random.controller;
 
 import com.buddhadata.projects.jukebox.random.supplier.LongSupplierRandomBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.Lifecycle;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,8 +54,8 @@ public class RandomController {
    * getter
    * @return the next randomly-generated gaussian value
    */
-  @GetMapping ("/guassian")
-  public double getGuassian() { return random.nextGaussian(); }
+  @GetMapping ("/gaussian")
+  public double getGaussian() { return random.nextGaussian(); }
 
   /**
    * getter
