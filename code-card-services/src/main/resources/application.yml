@@ -10,7 +10,7 @@ jukebox:
   credentials:
     username: jukebox
     password: digital99
-  hostname: 10.10.9.27:4040
+  hostname: subsonic.jukebox.lan:4040
   randomcnt: 20
 
 

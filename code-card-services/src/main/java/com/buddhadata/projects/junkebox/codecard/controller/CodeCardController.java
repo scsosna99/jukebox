@@ -9,6 +9,7 @@ import com.buddhadata.projects.junkebox.codecard.messages.enums.Icon;
 import com.buddhadata.projects.junkebox.codecard.messages.enums.Template;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.subsonic.restapi.JukeboxStatus;
@@ -31,6 +32,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 
 @RestController
+@RequestMapping("codecard")
 public class CodeCardController {
 
     /**
@@ -80,8 +82,8 @@ public class CodeCardController {
     /**
      * If nothing specified in RESTful call, how many songs are randomly retrieved.
      */
-    @Value("${jukebox.randomcnt:20")
-    private  int DEFAULT_RANDOM_SONG_COUNT;
+    @Value("${jukebox.randomcnt:20}")
+    private int DEFAULT_RANDOM_SONG_COUNT;
 
     /**
      * If played over this many seconds, a 'back' causes the song to restart; otherwise go to previous song.
@@ -317,30 +319,20 @@ public class CodeCardController {
     }
 
     /**
-     * Start the jukebox playing
-     * @return CodeCard response object
+     * Flip the playing mode, either stop a playing jukebox or start a stopped jukebox.
+     * @return CodeCard response object.
      */
-    @GetMapping("/start")
-    public CodeCardResponse startJukebox() {
+    @GetMapping("/startStop")
+    public CodeCardResponse startStopJukebox() {
 
         CodeCardResponse toReturn;
         try {
-            //  Is the jukebox currently stopped?
+            //  Determine current state of jukebox.
             JukeboxStatus status = jukeboxStatus();
             if (status == null || !status.isPlaying()) {
-                //  Attempt to make the call to the Subsonic server
-                Response<SubsonicResponse> response = jukeboxAction("start", 0, null, null, null);
-
-                //  Did we succeed or not?
-                if (response.isSuccessful()) {
-                    toReturn = createResponse(Template.template1, "Jukebox Started!", null, "Subsonic playback successfully started",
-                      Icon.champion, Background.code, BackgroundColor.white);
-                } else {
-                    toReturn = createResponse(Template.template1, "Jukebox Not Started!", null, "Jukebox service returned error " + response.errorBody(),
-                      Icon.fail, Background.code, BackgroundColor.black);
-                }
+                toReturn = startJukebox();
             } else {
-                toReturn = createResponse(Template.template1, "Jukebox Already Playing", null, "No reason to start.", Icon.fail, Background.code, BackgroundColor.black);
+                toReturn = stopJukebox();
             }
         } catch (IOException ioe) {
             //  Something really bad happened.
@@ -354,35 +346,44 @@ public class CodeCardController {
     }
 
     /**
+     * Start the jukebox playing
+     * @return CodeCard response object
+     */
+    private CodeCardResponse startJukebox() throws IOException {
+
+        CodeCardResponse toReturn;
+        //  Attempt to make the call to the Subsonic server
+        Response<SubsonicResponse> response = jukeboxAction("start", 0, null, null, null);
+
+        //  Did we succeed or not?
+        if (response.isSuccessful()) {
+            toReturn = createResponse(Template.template1, "Jukebox Started!", null, "Subsonic playback successfully started",
+              Icon.champion, Background.code, BackgroundColor.white);
+        } else {
+            toReturn = createResponse(Template.template1, "Jukebox Not Started!", null, "Jukebox service returned error " + response.errorBody(),
+              Icon.fail, Background.code, BackgroundColor.black);
+        }
+
+
+        return toReturn;
+    }
+
+    /**
      * stop the jukebox from playing
      * @return COdeCard response object
      */
-    @GetMapping("/stop")
-    public CodeCardResponse stopJukebox() {
+    private CodeCardResponse stopJukebox() throws IOException {
 
         CodeCardResponse toReturn;
-        try {
-            //  Is the jukebox actually playing right now?
-            JukeboxStatus status = jukeboxStatus();
-            if (status == null || status.isPlaying()) {
-                Response<SubsonicResponse> response = jukeboxAction("stop", null, null, null, null);
+        Response<SubsonicResponse> response = jukeboxAction("stop", null, null, null, null);
 
-                //  Did we succeed or not?
-                if (response.isSuccessful()) {
-                    toReturn = createResponse(Template.template1, "Jukebox Stopped!", null, "Subsonic playback successfully stopped",
-                      Icon.champion, Background.code, BackgroundColor.white);
-                } else {
-                    toReturn = createResponse(Template.template1, "Jukebox Not Stopped!", null, "Jukebox service returned error " + response.errorBody(),
-                      Icon.fail, Background.code, BackgroundColor.black);
-                }
-            } else {
-                toReturn = createResponse(Template.template1, "Jukebox Not Playing", null, "Not able to stop.", Icon.fail, Background.code, BackgroundColor.black);
-            }
-        } catch (IOException ioe) {
-            //  Something really bad happened.
-            System.out.println ("Exception occurred making call to Subsonic: " + ioe);
-            toReturn = createResponse(Template.template1, "Exception!", "JukeboxService.stop", ioe.toString(), Icon.fail,
-              Background.code, BackgroundColor.black);
+        //  Did we succeed or not?
+        if (response.isSuccessful()) {
+            toReturn = createResponse(Template.template1, "Jukebox Stopped!", null, "Subsonic playback successfully stopped",
+              Icon.champion, Background.code, BackgroundColor.white);
+        } else {
+            toReturn = createResponse(Template.template1, "Jukebox Not Stopped!", null, "Jukebox service returned error " + response.errorBody(),
+              Icon.fail, Background.code, BackgroundColor.black);
         }
 
 
