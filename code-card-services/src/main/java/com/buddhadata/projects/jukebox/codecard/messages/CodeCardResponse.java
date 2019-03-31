@@ -1,9 +1,9 @@
-package com.buddhadata.projects.junkebox.codecard.messages;
+package com.buddhadata.projects.jukebox.codecard.messages;
 
-import com.buddhadata.projects.junkebox.codecard.messages.enums.Background;
-import com.buddhadata.projects.junkebox.codecard.messages.enums.BackgroundColor;
-import com.buddhadata.projects.junkebox.codecard.messages.enums.Icon;
-import com.buddhadata.projects.junkebox.codecard.messages.enums.Template;
+import com.buddhadata.projects.jukebox.codecard.messages.enums.Background;
+import com.buddhadata.projects.jukebox.codecard.messages.enums.BackgroundColor;
+import com.buddhadata.projects.jukebox.codecard.messages.enums.Icon;
+import com.buddhadata.projects.jukebox.codecard.messages.enums.Template;
 
 /**
  * The deserialized message which is understood by the Code Card

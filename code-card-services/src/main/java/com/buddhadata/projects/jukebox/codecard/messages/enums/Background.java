@@ -1,4 +1,4 @@
-package com.buddhadata.projects.junkebox.codecard.messages.enums;
+package com.buddhadata.projects.jukebox.codecard.messages.enums;
 
 /**
  * Pre-loaded backgrounds for the Code Card

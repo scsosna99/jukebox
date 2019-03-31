@@ -1,4 +1,4 @@
-package com.buddhadata.projects.junkebox.codecard;
+package com.buddhadata.projects.jukebox.codecard;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

@@ -1,4 +1,4 @@
-package com.buddhadata.projects.junkebox.codecard.messages.enums;
+package com.buddhadata.projects.jukebox.codecard.messages.enums;
 
 /**
  * Available background colors to use on code card.

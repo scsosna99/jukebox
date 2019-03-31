@@ -1,12 +1,12 @@
-package com.buddhadata.projects.junkebox.codecard.controller;
+package com.buddhadata.projects.jukebox.codecard.controller;
 
+import com.buddhadata.projects.jukebox.codecard.messages.CodeCardResponse;
+import com.buddhadata.projects.jukebox.codecard.messages.enums.Background;
+import com.buddhadata.projects.jukebox.codecard.messages.enums.Template;
 import com.buddhadata.projects.jukebox.subsonic.client.AlbumSongServices;
 import com.buddhadata.projects.jukebox.subsonic.client.JukeboxService;
-import com.buddhadata.projects.junkebox.codecard.messages.CodeCardResponse;
-import com.buddhadata.projects.junkebox.codecard.messages.enums.Background;
-import com.buddhadata.projects.junkebox.codecard.messages.enums.BackgroundColor;
-import com.buddhadata.projects.junkebox.codecard.messages.enums.Icon;
-import com.buddhadata.projects.junkebox.codecard.messages.enums.Template;
+import com.buddhadata.projects.jukebox.codecard.messages.enums.BackgroundColor;
+import com.buddhadata.projects.jukebox.codecard.messages.enums.Icon;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

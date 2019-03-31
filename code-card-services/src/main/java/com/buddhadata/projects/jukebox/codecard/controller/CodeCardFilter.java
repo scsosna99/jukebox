@@ -1,4 +1,4 @@
-package com.buddhadata.projects.junkebox.codecard.controller;
+package com.buddhadata.projects.jukebox.codecard.controller;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
