@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:sub="http://buddhadata.com/projects/jukebox"
+           targetNamespace="http://buddhadata.com/projects/jukebox"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           version="0.0.1">
+
+    <xs:simpleType name="eventTypeEnum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="queue"/>
+            <xs:enumeration value="dequeue"/>
+            <xs:enumeration value="play"/>
+            <xs:enumeration value="queue"/>
+            <xs:enumeration value="start"/>
+            <xs:enumeration value="stop"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="albumType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="artist" type="sub:artistType"/>
+            <xs:element name="songCount" type="xs:int"/>
+            <xs:element name="duration" type="xs:int"/>
+            <xs:element name="year" type="xs:int" minOccurs="0"/>
+            <xs:element name="genre" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="artistType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="songType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:string"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="artist" type="sub:artistType"/>
+            <xs:element name="album" type="sub:albumType"/>
+            <xs:element name="track" type="xs:int"/>
+            <xs:element name="year" type="xs:int" minOccurs="0"/>
+            <xs:element name="genre" type="xs:string" minOccurs="0"/>
+            <xs:element name="duration" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="jukebox-event">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="event" type="sub:eventTypeEnum"/>
+                <xs:element name="song" type="sub:songType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
