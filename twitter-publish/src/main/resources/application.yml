@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+spring:
+  application:
+      name: twitter-publish
+
+jukebox:
+  kafka:
+    broker: kafka.jukebox.lan:9092
+#    broker: 10.10.9.8:9092
+    groupname: twitter-publish
+    topic: jukebox-events
+  twitter:
+    access.token: 1112452997219536897-rn0VSDOb2t891dSnAwBvrwk7W9YsQ1
+    consumer.key: tZGSqLXys0yZ40LzFcPTZ2MdC
+
+
+management:
+  endpoints:
+    web:
+      exposure
+        include=health,info,sessions
