@@ -1,4 +1,4 @@
-package com.buddhadata.projects.jukebox.subsonic.client;
+package com.buddhadata.projects.jukebox.subsonic.client.services;
 
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Call;
@@ -17,7 +17,7 @@ public interface MediaRetrievalService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id A string which uniquely identifies the file to stream. Obtained by calls to getMusicDirectory.
      * @param maxBitRate If specified, the server will attempt to limit the bitrate to this value, in kilobits per second. If set to zero, no limit is imposed.
      * @param format Specifies the preferred target format (e.g., "mp3" or "flv") in case there are multiple applicable transcodings. Starting with 1.9.0 you can use the special value "raw" to disable transcoding.
@@ -45,7 +45,7 @@ public interface MediaRetrievalService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id A string which uniquely identifies the file to download. Obtained by calls to getMusicDirectory.
      * @return Subsonic response
      */
@@ -61,7 +61,7 @@ public interface MediaRetrievalService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id A string which uniquely identifies the media file to stream.
      * @param bitRate If specified, the server will attempt to limit the bitrate to this value, in kilobits per second.
      * @param audioTrack The ID of the audio track to use. See getVideoInfo for how to get the list of available audio tracks for a video.
@@ -81,7 +81,7 @@ public interface MediaRetrievalService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The ID of the video.
      * @param format Preferred captions format ("srt" or "vtt").
      * @return Subsonic response
@@ -99,7 +99,7 @@ public interface MediaRetrievalService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The ID of a song, album or artist.
      * @param size If specified, scale image to this size.
      * @return Subsonic response
@@ -117,7 +117,7 @@ public interface MediaRetrievalService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param artist The artist name.
      * @param title The song title.
      * @return Subsonic response
@@ -135,7 +135,7 @@ public interface MediaRetrievalService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param username The user in question.
      * @return Subsonic response
      */

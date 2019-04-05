@@ -3,8 +3,9 @@ package com.buddhadata.projects.jukebox.codecard.controller;
 import com.buddhadata.projects.jukebox.codecard.messages.CodeCardResponse;
 import com.buddhadata.projects.jukebox.codecard.messages.enums.Background;
 import com.buddhadata.projects.jukebox.codecard.messages.enums.Template;
-import com.buddhadata.projects.jukebox.subsonic.client.AlbumSongServices;
-import com.buddhadata.projects.jukebox.subsonic.client.JukeboxService;
+import com.buddhadata.projects.jukebox.subsonic.client.SubsonicHelper;
+import com.buddhadata.projects.jukebox.subsonic.client.services.AlbumSongServices;
+import com.buddhadata.projects.jukebox.subsonic.client.services.JukeboxService;
 import com.buddhadata.projects.jukebox.codecard.messages.enums.BackgroundColor;
 import com.buddhadata.projects.jukebox.codecard.messages.enums.Icon;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,11 +50,6 @@ public class CodeCardController {
      * Global Retrofit instance from which individual services will be created.
      */
     private Retrofit retrofit = null;
-
-    /**
-     * The constructed/expected player name, assuming everything goes well.
-     */
-    private String playerName;
 
     /**
      * Client name to use when connecting to subsonic.
@@ -201,12 +197,8 @@ public class CodeCardController {
               album.getNowPlaying(subsonicUsername, subsonicPassword, "1.16.0", subsonicClientName).execute();
             if (response.isSuccessful()) {
 
-                //  Filter for what we expect to be the player name.
-                Optional<NowPlayingEntry> player = response.body().getNowPlaying().getEntry().stream()
-                  .filter(one -> one.getUsername().equals(subsonicUsername))
-                  .sorted(Comparator.comparingInt(NowPlayingEntry::getMinutesAgo))
-                  .filter(one -> one.getPlayerName().equals(playerName))
-                  .findFirst();
+                //  Attempt to get the entry for the specific player we're interested in.
+                Optional<NowPlayingEntry> player = SubsonicHelper.instance.getNowPlayingForPlayer(response.body().getNowPlaying(), subsonicClientName, subsonicUsername);
                 if (player.isPresent()) {
                     NowPlayingEntry entry = player.get();
                     toReturn = createResponse(Template.template1, "Now Playing", "from \"" + entry.getAlbum() + "\"", entry.getTitle() + " by " + entry.getArtist(),
@@ -396,23 +388,9 @@ public class CodeCardController {
     @PostConstruct
     public void init() {
 
-        //  Set up everything needed to communicate with subsonic device.
-        try {
-            JAXBContext context = JAXBContext.newInstance("org.subsonic.restapi");
-            retrofit = new Retrofit.Builder()
-              .baseUrl("http://" + subsonicHostName + "/rest/")
-              .addConverterFactory(JaxbConverterFactory.create(context))
-              .build();
-        } catch (JAXBException e) {
-            System.out.println ("Exception setting up retrofit: " + e);
-        }
-
         //  Create the individual services required
-        album = retrofit.create(AlbumSongServices.class);
-        jukebox = retrofit.create(JukeboxService.class);
-
-        //  The player name is based on the user and client names.
-        playerName = subsonicClientName + "-" + subsonicUsername;
+        album = SubsonicHelper.instance.createService(subsonicHostName, AlbumSongServices.class);
+        jukebox = SubsonicHelper.instance.createService(subsonicHostName, JukeboxService.class);
     }
 
 

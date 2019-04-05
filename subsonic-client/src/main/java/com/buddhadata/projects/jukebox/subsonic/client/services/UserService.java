@@ -1,4 +1,4 @@
-package com.buddhadata.projects.jukebox.subsonic.client;
+package com.buddhadata.projects.jukebox.subsonic.client.services;
 
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Call;
@@ -17,7 +17,7 @@ public interface UserService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param getUsername The name of the user to retrieve. You can only retrieve your own user unless you have admin privileges.
      * @return Subsonic response
      */
@@ -33,7 +33,7 @@ public interface UserService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @return Subsonic response
      */
     @GET("getUsers")
@@ -47,7 +47,7 @@ public interface UserService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param createdUsername The name of the user.
      * @param createdPassword The password of the user, either in clear text or hex-encoded.
      * @param email The email address of the user.
@@ -93,7 +93,7 @@ public interface UserService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param updatedUsername The name of the user.
      * @param updatedPassword The password of the user, either in clear text or hex-encoded.
      * @param email The email address of the user.
@@ -141,7 +141,7 @@ public interface UserService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param deleteUsername The name of the user to delete.
      * @return Subsonic response
      */
@@ -157,7 +157,7 @@ public interface UserService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param changedUsername The name of the user which should change its password.
      * @param changedPassword The new password of the new user, either in clear text of hex-encoded
      * @return Subsonic response

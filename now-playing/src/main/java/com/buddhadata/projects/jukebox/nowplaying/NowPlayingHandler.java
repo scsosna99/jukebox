@@ -2,8 +2,8 @@ package com.buddhadata.projects.jukebox.nowplaying;
 
 import com.buddhadata.projects.jukebox.*;
 import com.buddhadata.projects.jukebox.kafka.producer.ProducerFactory;
-import com.buddhadata.projects.jukebox.subsonic.client.AlbumSongServices;
-import com.buddhadata.projects.jukebox.subsonic.client.JukeboxService;
+import com.buddhadata.projects.jukebox.subsonic.client.SubsonicHelper;
+import com.buddhadata.projects.jukebox.subsonic.client.services.AlbumSongServices;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -57,11 +57,6 @@ public class NowPlayingHandler {
   private Retrofit retrofit = null;
 
   /**
-   * The constructed/expected player name, assuming everything goes well.
-   */
-  private String playerName;
-
-  /**
    * The Kafka instance/cluseter to which we're publishing events
    */
   @Value("${jukebox.kafka.broker}")
@@ -74,7 +69,7 @@ public class NowPlayingHandler {
   private String kafkaTopicName;
 
   /**
-   * The Kafka client name used when creating a producer
+   * The Kafka services name used when creating a producer
    */
   @Value("${jukebox.kafka.clientname}")
   private String kafkaClientName;
@@ -116,11 +111,7 @@ public class NowPlayingHandler {
       if (response.isSuccessful()) {
 
         //  Filter for what we expect to be the player name.
-        Optional<NowPlayingEntry> player = response.body().getNowPlaying().getEntry().stream()
-          .filter(one -> one.getUsername().equals(subsonicUsername))
-          .sorted(Comparator.comparingInt(NowPlayingEntry::getMinutesAgo))
-          .filter(one -> one.getPlayerName().equals(playerName))
-          .findFirst();
+        Optional<NowPlayingEntry> player = SubsonicHelper.instance.getNowPlayingForPlayer(response.body().getNowPlaying(), subsonicClientName, subsonicUsername);
         if (player.isPresent()) {
           NowPlayingEntry entry = player.get();
           if (previousEntry != null && !entry.getId().equals(previousEntry.getId())) {
@@ -195,21 +186,7 @@ public class NowPlayingHandler {
   @PostConstruct
   public void init() {
     //  Set up everything needed to communicate with subsonic device.
-    try {
-      JAXBContext context = JAXBContext.newInstance("org.subsonic.restapi");
-      retrofit = new Retrofit.Builder()
-        .baseUrl("http://" + subsonicHostName + "/rest/")
-        .addConverterFactory(JaxbConverterFactory.create(context))
-        .build();
-    } catch (JAXBException e) {
-      System.out.println ("Exception setting up retrofit: " + e);
-    }
-
-    //  Create the individual services required
-    album = retrofit.create(AlbumSongServices.class);
-
-    //  The player name is based on the user and client names.
-    playerName = subsonicClientName + "-" + subsonicUsername;
+    album = SubsonicHelper.instance.createService (subsonicHostName, AlbumSongServices.class);
 
     //  Create the Kafka producer to use through the life.
     kafkaProducer = (Producer<Long, String>) ProducerFactory.instance.get(kafkaBroker, kafkaClientName, Long.class, String.class);

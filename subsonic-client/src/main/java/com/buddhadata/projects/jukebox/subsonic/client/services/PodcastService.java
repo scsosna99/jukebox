@@ -1,4 +1,4 @@
-package com.buddhadata.projects.jukebox.subsonic.client;
+package com.buddhadata.projects.jukebox.subsonic.client.services;
 
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Call;
@@ -17,7 +17,7 @@ public interface PodcastService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param includeEpisodes Whether to include Podcast episodes in the returned result.
      * @param id If specified, only return the Podcast channel with this ID.
      * @return Subsonic response
@@ -35,7 +35,7 @@ public interface PodcastService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param count The maximum number of episodes to return.
      * @return Subsonic response
      */
@@ -51,7 +51,7 @@ public interface PodcastService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @return Subsonic response
      */
     @GET("refreshPodcasts")
@@ -65,7 +65,7 @@ public interface PodcastService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param url The URL of the Podcast to add
      * @return Subsonic response
      */
@@ -81,7 +81,7 @@ public interface PodcastService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The ID of the Podcast channel to delete.
      * @return Subsonic response
      */
@@ -97,7 +97,7 @@ public interface PodcastService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The ID of the Podcast episode to delete.
      * @return Subsonic response
      */
@@ -113,7 +113,7 @@ public interface PodcastService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The ID of the Podcast episode to download.
      * @return Subsonic response
      */

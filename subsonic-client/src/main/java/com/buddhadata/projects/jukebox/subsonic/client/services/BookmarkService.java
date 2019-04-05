@@ -1,4 +1,4 @@
-package com.buddhadata.projects.jukebox.subsonic.client;
+package com.buddhadata.projects.jukebox.subsonic.client.services;
 
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Call;
@@ -16,7 +16,7 @@ public interface BookmarkService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @return Subsonic response
      */
     Call<SubsonicResponse> getBookmarks(@Query("u") String user,
@@ -29,7 +29,7 @@ public interface BookmarkService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id ID of the media file to bookmark
      * @param position the position (in milliseconds) within the media file
      * @return Subsonic response
@@ -47,7 +47,7 @@ public interface BookmarkService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id ID of the media file for which to delete the bookmark
      * @return Subsonic response
      */
@@ -62,7 +62,7 @@ public interface BookmarkService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @return Subsonic response
      */
     Call<SubsonicResponse> getPlayQueue(@Query("u") String user,
@@ -75,7 +75,7 @@ public interface BookmarkService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id ID of a song in the play queue. Use one id parameter for each song in the play queue.
      * @param current The ID of the current playing song.
      * @param position The position in milliseconds within the currently playing song.

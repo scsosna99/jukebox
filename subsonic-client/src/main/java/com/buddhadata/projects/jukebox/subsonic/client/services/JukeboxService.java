@@ -1,4 +1,4 @@
-package com.buddhadata.projects.jukebox.subsonic.client;
+package com.buddhadata.projects.jukebox.subsonic.client.services;
 
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Call;
@@ -17,7 +17,7 @@ public interface JukeboxService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param action The operation to perform. Must be one of: get, status, set, start, stop, skip, add, clear, remove, shuffle, setGain
      * @param index Used by skip and remove. Zero-based index of the song to skip to or remove.
      * @param offset Used by skip. Start playing this many seconds into the track.

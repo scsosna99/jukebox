@@ -1,4 +1,4 @@
-package com.buddhadata.projects.jukebox.subsonic.client;
+package com.buddhadata.projects.jukebox.subsonic.client.services;
 
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Call;
@@ -17,7 +17,7 @@ public interface SharingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @return Subsonic response
      */
     @GET("getShares")
@@ -31,7 +31,7 @@ public interface SharingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id ID of a song, album or video to share. Use one id parameter for each entry to share.
      * @param description A user-defined description that will be displayed to people visiting the shared media.
      * @param expires The time at which the share expires. Given as milliseconds since 1970.
@@ -51,7 +51,7 @@ public interface SharingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id ID of the share to update.
      * @param description A user-defined description that will be displayed to people visiting the shared media.
      * @param expires The time at which the share expires. Given as milliseconds since 1970, or zero to remove the expiration.
@@ -71,7 +71,7 @@ public interface SharingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id ID of the share to delete
      * @return Subsonic response
      */

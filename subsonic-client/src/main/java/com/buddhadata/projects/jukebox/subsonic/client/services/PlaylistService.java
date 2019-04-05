@@ -1,4 +1,4 @@
-package com.buddhadata.projects.jukebox.subsonic.client;
+package com.buddhadata.projects.jukebox.subsonic.client.services;
 
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Call;
@@ -17,7 +17,7 @@ public interface PlaylistService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param username If specified, return playlists for this user rather than for the authenticated user. The authenticated user must have admin role if this parameter is used.
      * @return Subsonic response
      */
@@ -33,7 +33,7 @@ public interface PlaylistService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id ID of the playlist to return, as obtained by getPlaylists.
      * @return Subsonic response
      */
@@ -49,7 +49,7 @@ public interface PlaylistService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param playlistId The playlist ID.
      * @param name The human-readable name of the playlist.
      * @param songId ID of a song in the playlist. Use one songId parameter for each song in the playlist.
@@ -69,7 +69,7 @@ public interface PlaylistService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param playlistId The playlist ID.
      * @param name The human-readable name of the playlist.
      * @param comment The playlist comment.
@@ -95,7 +95,7 @@ public interface PlaylistService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id ID of the playlist to delete, as obtained by getPlaylists.
      * @return Subsonic response
      */

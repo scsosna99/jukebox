@@ -1,4 +1,4 @@
-package com.buddhadata.projects.jukebox.subsonic.client;
+package com.buddhadata.projects.jukebox.subsonic.client.services;
 
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Call;
@@ -17,10 +17,10 @@ public interface MediaAnnotationService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The ID of the file (song) or folder (album/artist) to star. Multiple parameters allowed.
-     * @param albumId The ID of an album to star. Use this rather than id if the client accesses the media collection according to ID3 tags rather than file structure. Multiple parameters allowed.
-     * @param artistId The ID of an artist to star. Use this rather than id if the client accesses the media collection according to ID3 tags rather than file structure. Multiple parameters allowed.
+     * @param albumId The ID of an album to star. Use this rather than id if the services accesses the media collection according to ID3 tags rather than file structure. Multiple parameters allowed.
+     * @param artistId The ID of an artist to star. Use this rather than id if the services accesses the media collection according to ID3 tags rather than file structure. Multiple parameters allowed.
      * @return Subsonic response
      */
     @GET("star")
@@ -37,10 +37,10 @@ public interface MediaAnnotationService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The ID of the file (song) or folder (album/artist) to unstar. Multiple parameters allowed.
-     * @param albumId The ID of an album to unstar. Use this rather than id if the client accesses the media collection according to ID3 tags rather than file structure. Multiple parameters allowed.
-     * @param artistId The ID of an artist to unstar. Use this rather than id if the client accesses the media collection according to ID3 tags rather than file structure. Multiple parameters allowed.
+     * @param albumId The ID of an album to unstar. Use this rather than id if the services accesses the media collection according to ID3 tags rather than file structure. Multiple parameters allowed.
+     * @param artistId The ID of an artist to unstar. Use this rather than id if the services accesses the media collection according to ID3 tags rather than file structure. Multiple parameters allowed.
      * @return Subsonic response
      */
     @GET("unstar")
@@ -57,7 +57,7 @@ public interface MediaAnnotationService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id A string which uniquely identifies the file (song) or folder (album/artist) to rate.
      * @param rating The rating between 1 and 5 (inclusive), or 0 to remove the rating.
      * @return Subsonic response
@@ -75,7 +75,7 @@ public interface MediaAnnotationService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id A string which uniquely identifies the file to scrobble.
      * @param time The time (in milliseconds since 1 Jan 1970) at which the song was listened to.
      * @param submission Whether this is a "submission" or a "now playing" notification.

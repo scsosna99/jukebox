@@ -1,4 +1,4 @@
-package com.buddhadata.projects.jukebox.subsonic.client;
+package com.buddhadata.projects.jukebox.subsonic.client.services;
 
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Response;
@@ -20,9 +20,9 @@ public class Testing {
                     .baseUrl("http://10.10.9.27:4040/rest/")
                     .addConverterFactory(JaxbConverterFactory.create(context))
                     .build();
-//            SystemService service = client.create(SystemService.class);
+//            SystemService service = services.create(SystemService.class);
 //            Response<SubsonicResponse> response = service.getLicense("admin", "Anim8d99!", "1.16.0", "digital-jukebox").execute();
-//            AlbumSongServices service = client.create(AlbumSongServices.class);
+//            AlbumSongServices service = services.create(AlbumSongServices.class);
 //            Response<SubsonicResponse> response = service.getNowPlaying("admin", "admin", "1.16.0", "digital-jukebox").execute();
 //            System.out.println(response.body());
 
@@ -43,7 +43,7 @@ public class Testing {
             System.out.println (aresp.code());
 
 /*
-            PlaylistService playlist = client.create(PlaylistService.class);
+            PlaylistService playlist = services.create(PlaylistService.class);
             response = playlist.createPlaylist("admin", "admin", "1.16.0", "digital-jukebox", null, "myplaylist", null).execute();
             String plId = response.body().getPlaylist().getId();
             aresp.body().getRandomSongs().getSong().forEach(one -> {

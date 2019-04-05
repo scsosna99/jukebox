@@ -1,4 +1,4 @@
-package com.buddhadata.projects.jukebox.subsonic.client;
+package com.buddhadata.projects.jukebox.subsonic.client.services;
 
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Call;
@@ -17,7 +17,7 @@ public interface SearchingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param artist Artist to search for.
      * @param album Album to search for.
      * @param title Title to search for.
@@ -45,7 +45,7 @@ public interface SearchingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param query Search query.
      * @param artistCount Maximum number of artists to return.
      * @param artistOffset Search result offset for artists. Used for paging.
@@ -75,7 +75,7 @@ public interface SearchingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param query Search query.
      * @param artistCount Maximum number of artists to return.
      * @param artistOffset Search result offset for artists. Used for paging.

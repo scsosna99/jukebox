@@ -1,4 +1,4 @@
-package com.buddhadata.projects.jukebox.subsonic.client;
+package com.buddhadata.projects.jukebox.subsonic.client.services;
 
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Call;
@@ -17,7 +17,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @return Subsonic response
      */
     @GET("getMusicFolders")
@@ -31,7 +31,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param musicFolderId If specified, only return artists in the music folder with the given ID.
      * @param ifModifiedSince If specified, only return a result if the artist collection has changed since the given time (in milliseconds since 1 Jan 1970).
      * @return Subsonic response
@@ -49,7 +49,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id A string which uniquely identifies the music folder. Obtained by calls to getIndexes or getMusicDirectory.
      * @return Subsonic response
      */
@@ -65,7 +65,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @return Subsonic response
      */
     @GET("getGenres")
@@ -79,7 +79,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param musicFolderId If specified, only return artists in the music folder with the given ID.
      * @return Subsonic response
      */
@@ -95,7 +95,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The artist ID.
      * @return Subsonic response
      */
@@ -111,7 +111,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The album ID.
      * @return Subsonic response
      */
@@ -127,7 +127,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The song ID.
      * @return Subsonic response
      */
@@ -143,7 +143,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @return Subsonic response
      */
     @GET("getVideo")
@@ -157,7 +157,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The video ID.
      * @return Subsonic response
      */
@@ -173,7 +173,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The artist, album or song ID.
      * @param count Max number of similar artists to return.
      * @param includeNotPresent Whether to return artists that are not present in the media library.
@@ -193,7 +193,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The artist ID.
      * @param count Max number of similar artists to return.
      * @param includeNotPresent Whether to return artists that are not present in the media library.
@@ -213,7 +213,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The album or song ID.
      * @return Subsonic response
      */
@@ -229,7 +229,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The album ID.
      * @return Subsonic response
      */
@@ -245,7 +245,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The artist, album, or song ID.
      * @param count Max number of songs to return.
      * @return Subsonic response
@@ -263,7 +263,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param id The artist ID.
      * @param count Max number of songs to return.
      * @return Subsonic response
@@ -281,7 +281,7 @@ public interface BrowsingService {
      * @param user authentication user name
      * @param password authentication password
      * @param version Subsonic API version
-     * @param client name of client making the call.
+     * @param client name of services making the call.
      * @param artist The artist name
      * @param count Max number of songs to return.
      * @return Subsonic response
