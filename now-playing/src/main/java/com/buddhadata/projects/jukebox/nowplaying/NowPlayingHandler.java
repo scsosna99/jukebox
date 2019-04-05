@@ -37,11 +37,6 @@ public class NowPlayingHandler {
   private AlbumSongServices album;
 
   /**
-   * Retrofit service for making calls to the Subsonic Jukebox API
-   */
-  private JukeboxService jukebox;
-
-  /**
    * Track what was the last entry found for what is currently playing.
    */
   private NowPlayingEntry previousEntry = null;
@@ -212,7 +207,6 @@ public class NowPlayingHandler {
 
     //  Create the individual services required
     album = retrofit.create(AlbumSongServices.class);
-    jukebox = retrofit.create(JukeboxService.class);
 
     //  The player name is based on the user and client names.
     playerName = subsonicClientName + "-" + subsonicUsername;
