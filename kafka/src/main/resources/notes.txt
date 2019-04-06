@@ -1,0 +1,11 @@
+Most Kafka images are not build with an ARM-based Java, so most images/docker-compose/etc. won't work on a Raspberry Pi.
+
+The ISNITO/docker-kafka-arm project in GithHub (https://github.com/ISNIT0/docker-kafka-arm) does work, but had problems
+getting networking configured correctly and constantly got OutOfMemory exceptions.  It also started quite slow and appeared fairly
+laggy when trying to run some of the kafka utilities like kafka-topics or kafka-console-producer.
+
+
+Best/easeiest seems to deploy natively on Raspian.
+-Zookeeper can be deployed via apt-get: sudo apt-get install zookeeper zookeeper-bin zookeeperd
+-Kafka must be manually installed.  I followed https://medium.com/@oliver_hu/set-up-a-kafka-cluster-with-raspberry-pi-2859005a9bed
+-To start Kafka up at RPi boot, add to /etc/rc.local.
