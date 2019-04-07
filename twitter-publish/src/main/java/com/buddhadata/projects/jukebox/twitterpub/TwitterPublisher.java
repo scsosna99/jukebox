@@ -107,6 +107,9 @@ public class TwitterPublisher {
               StringBuffer buffer = new StringBuffer(1024);
               switch (event.getEvent()) {
 
+                case BACK:
+                  buffer.append ("PREVIOUS SONG");
+                  break;
                 case DEQUEUE:
                   buffer.append ("SONG DEQUEUED: ").append (buildSongInfo(event));
                   break;
@@ -114,7 +117,13 @@ public class TwitterPublisher {
                   buffer.append ("SONG NOW PLAYING: ").append (buildSongInfo(event));
                   break;
                 case QUEUE:
-                  buffer.append ("SONG QUEUE: ").append (buildSongInfo(event));
+                  buffer.append ("SONG QUEUED: ").append (buildSongInfo(event));
+                  break;
+                case RESTART:
+                  buffer.append ("RESTARTING SONG");
+                  break;
+                case SKIP:
+                  buffer.append ("SKIPPING SONG");
                   break;
                 case START:
                   buffer.append ("JUKEBOX STOPPED");

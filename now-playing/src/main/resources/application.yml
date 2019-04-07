@@ -16,7 +16,6 @@ jukebox:
     clientname: now-playing
     topic: jukebox-events
 
-
 management:
   endpoints:
     web:

@@ -15,6 +15,15 @@
       <artifactId>messages</artifactId>
       <version>1.16.0</version>
     </dependency>
+
+    <!-- Jukebox messages -->
+    <dependency>
+      <groupId>com.buddhadata.projects.jukebox</groupId>
+      <artifactId>jukebox-messages</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+
+    <!-- Retrofit -->
     <dependency>
       <groupId>com.squareup.retrofit2</groupId>
       <artifactId>retrofit</artifactId>

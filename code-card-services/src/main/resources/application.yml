@@ -12,6 +12,10 @@ jukebox:
     password: digital99
 #  hostname: 10.10.9.27:4040
   hostname: subsonic.jukebox.lan
+  kafka:
+    broker: kafka.jukebox.lan:9092
+    clientname: code-card
+    topic: jukebox-events
   randomcnt: 20
 
 

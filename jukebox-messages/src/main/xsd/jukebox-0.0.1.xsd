@@ -8,10 +8,12 @@
 
     <xs:simpleType name="eventTypeEnum">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="queue"/>
+            <xs:enumeration value="back"/>
             <xs:enumeration value="dequeue"/>
             <xs:enumeration value="play"/>
             <xs:enumeration value="queue"/>
+            <xs:enumeration value="restart"/>
+            <xs:enumeration value="skip"/>
             <xs:enumeration value="start"/>
             <xs:enumeration value="stop"/>
         </xs:restriction>

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.subsonic.restapi.Child;
 import org.subsonic.restapi.NowPlayingEntry;
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Response;
@@ -119,7 +120,8 @@ public class NowPlayingHandler {
 
             //  Publish a kafak message with information about the song being played.
             try {
-              kafkaProducer.send(new ProducerRecord<>(kafkaTopicName, System.currentTimeMillis(), om.writeValueAsString(createEvent(entry)))).get();
+              kafkaProducer.send(new ProducerRecord<>(kafkaTopicName, System.currentTimeMillis(),
+                om.writeValueAsString(SubsonicHelper.instance.createEvent(entry, EventTypeEnum.PLAY)))).get();
             } catch (Throwable t) {
               System.out.println ("Exception while writing out Kafka information: " + t);
             }
@@ -140,43 +142,6 @@ public class NowPlayingHandler {
 
 
     return;
-  }
-
-
-  /**
-   * Create the jukebox entry that is going to be published, which is a subset of information about a song.
-   * @param entry the song currently playing
-   * @return the populated song event.
-   */
-  private JukeboxEvent createEvent (NowPlayingEntry entry) {
-
-    //  Artist
-    ArtistType artist = new ArtistType();
-    artist.setId (entry.getArtistId());
-    artist.setName(entry.getArtist());
-
-    //  ALbum
-    AlbumType album = new AlbumType();
-    album.setId(entry.getAlbumId());
-    album.setName(entry.getAlbum());
-
-    //  Song
-    SongType song = new SongType();
-    song.setId (entry.getId());
-    song.setTitle(entry.getTitle());
-    song.setArtist(artist);
-    song.setAlbum(album);
-    song.setTrack(entry.getTrack());
-    song.setDuration(entry.getDuration());
-    song.setGenre(entry.getGenre());
-    song.setYear(entry.getYear());
-
-    //  Jukebox event to send
-    JukeboxEvent toReturn = new JukeboxEvent();
-    toReturn.setEvent(EventTypeEnum.PLAY);
-    toReturn.setSong (song);
-
-    return toReturn;
   }
 
 

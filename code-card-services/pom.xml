@@ -28,6 +28,13 @@
       <version>1.16.0</version>
     </dependency>
 
+    <!-- Utility functionality for Kafka publishing -->
+    <dependency>
+      <groupId>com.buddhadata.projects.jukebox</groupId>
+      <artifactId>kafka</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+
     <!-- Basic Spring boot used for application. -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

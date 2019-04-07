@@ -1,5 +1,7 @@
 package com.buddhadata.projects.jukebox.subsonic.client;
 
+import com.buddhadata.projects.jukebox.*;
+import org.subsonic.restapi.Child;
 import org.subsonic.restapi.NowPlaying;
 import org.subsonic.restapi.NowPlayingEntry;
 import retrofit2.Retrofit;
@@ -52,6 +54,47 @@ public enum SubsonicHelper {
     //  Return the creted service
     return retrofit.create(type);
   }
+  /**
+   * Create the jukebox entry that is going to be published, which is a subset of information about a song.
+   * @param entry the song currently playing
+   * @param eventType type of jukebox event being published
+   * @return the populated song event.
+   */
+  public JukeboxEvent createEvent (Child entry,
+                                    EventTypeEnum eventType) {
+
+    //  Jukebox event to send
+    JukeboxEvent toReturn = new JukeboxEvent();
+    toReturn.setEvent(eventType);
+
+    if (entry != null) {
+      //  Artist
+      ArtistType artist = new ArtistType();
+      artist.setId(entry.getArtistId());
+      artist.setName(entry.getArtist());
+
+      //  ALbum
+      AlbumType album = new AlbumType();
+      album.setId(entry.getAlbumId());
+      album.setName(entry.getAlbum());
+
+      //  Song
+      SongType song = new SongType();
+      song.setId(entry.getId());
+      song.setTitle(entry.getTitle());
+      song.setArtist(artist);
+      song.setAlbum(album);
+      song.setTrack(entry.getTrack());
+      song.setDuration(entry.getDuration());
+      song.setGenre(entry.getGenre());
+      song.setYear(entry.getYear());
+      toReturn.setSong(song);
+    }
+
+    return toReturn;
+  }
+
+
 
   /**
    * Method that attempts to filter out the various players which are returned by the API call for
