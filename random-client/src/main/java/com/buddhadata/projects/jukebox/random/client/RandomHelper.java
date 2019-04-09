@@ -4,7 +4,6 @@ import com.buddhadata.projects.jukebox.random.client.services.RandomService;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
-import javax.xml.bind.JAXBContext;
 import java.io.IOException;
 
 /**
@@ -13,12 +12,6 @@ import java.io.IOException;
 public enum RandomHelper {
 
   instance;
-
-  /**
-   * Same JAXB context can be used for all service interfaces created.
-   */
-  private JAXBContext context;
-
 
   /**
    * Create Retrofit servces
