@@ -12,7 +12,7 @@
   <groupId>com.buddhadata.projects.jukebox</groupId>
   <artifactId>code-card-controller</artifactId>
   <version>0.0.1</version>
-  <name>Code Card Services</name>
+  <name>CodeCard Services</name>
 
   <parent>
     <groupId>org.springframework.boot</groupId>

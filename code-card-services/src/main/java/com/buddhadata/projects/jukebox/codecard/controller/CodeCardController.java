@@ -8,7 +8,7 @@ import com.buddhadata.projects.jukebox.codecard.messages.enums.Icon;
 import com.buddhadata.projects.jukebox.codecard.messages.enums.Template;
 import com.buddhadata.projects.jukebox.kafka.producer.ProducerFactory;
 import com.buddhadata.projects.jukebox.subsonic.client.SubsonicHelper;
-import com.buddhadata.projects.jukebox.subsonic.client.services.AlbumSongServices;
+import com.buddhadata.projects.jukebox.subsonic.client.services.AlbumSongService;
 import com.buddhadata.projects.jukebox.subsonic.client.services.JukeboxService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.Producer;
@@ -41,7 +41,7 @@ public class CodeCardController {
     /**
      * Retrofit service for making calls to the Subsonic AlbumSong API
      */
-    private AlbumSongServices album;
+    private AlbumSongService album;
 
     /**
      * Retrofit service for making calls to the Subsonic Jukebox API
@@ -163,10 +163,10 @@ public class CodeCardController {
         CodeCardResponse toReturn;
         try {
             Response<SubsonicResponse> response =
-              jukebox.jukeboxControl(subsonicUsername, subsonicPassword, "1.16.0", subsonicClientName, "get", null, null, null, null).execute();
+              jukebox.jukeboxControl(subsonicUsername, subsonicPassword, SubsonicHelper.SUBSONIC_API_VERSION, subsonicClientName, "get", null, null, null, null).execute();
             if (!response.body().getJukeboxPlaylist().getEntry().isEmpty()) {
                 for (Child one : response.body().getJukeboxPlaylist().getEntry()) {
-                    jukebox.jukeboxControl(subsonicUsername, subsonicPassword, "1.16.0", subsonicClientName, "remove", 0, null, null, null).execute();
+                    jukebox.jukeboxControl(subsonicUsername, subsonicPassword, SubsonicHelper.SUBSONIC_API_VERSION, subsonicClientName, "remove", 0, null, null, null).execute();
                     SubsonicHelper.instance.createEvent(one, EventTypeEnum.DEQUEUE);
                 }
             }
@@ -227,7 +227,7 @@ public class CodeCardController {
         CodeCardResponse toReturn;
         try {
             Response<SubsonicResponse> response =
-              album.getNowPlaying(subsonicUsername, subsonicPassword, "1.16.0", subsonicClientName).execute();
+              album.getNowPlaying(subsonicUsername, subsonicPassword, SubsonicHelper.SUBSONIC_API_VERSION, subsonicClientName).execute();
             if (response.isSuccessful()) {
 
                 //  Attempt to get the entry for the specific player we're interested in.
@@ -273,7 +273,7 @@ public class CodeCardController {
         CodeCardResponse toReturn;
         try {
             final AtomicInteger added = new AtomicInteger(0);
-            album.getRandomSongs("jukebox", "digital99", "1.16.0", "digital-jukebox", count != null ? count : DEFAULT_RANDOM_SONG_COUNT, genre, fromYear, toYear, null)
+            album.getRandomSongs(subsonicUsername, subsonicPassword, SubsonicHelper.SUBSONIC_API_VERSION, subsonicClientName, count != null ? count : DEFAULT_RANDOM_SONG_COUNT, genre, fromYear, toYear, null)
               .execute()
               .body()
               .getRandomSongs()
@@ -426,7 +426,7 @@ public class CodeCardController {
     public void init() {
 
         //  Create the individual services required
-        album = SubsonicHelper.instance.createService(subsonicHostName, AlbumSongServices.class);
+        album = SubsonicHelper.instance.createService(subsonicHostName, AlbumSongService.class);
         jukebox = SubsonicHelper.instance.createService(subsonicHostName, JukeboxService.class);
 
         //  Create the Kafka producer to use through the life.
@@ -494,7 +494,7 @@ public class CodeCardController {
                                               Integer offset,
                                               String id,
                                               Double gain) throws IOException {
-        return jukebox.jukeboxControl(subsonicUsername, subsonicPassword, "1.16.0", subsonicClientName, action, index, offset, id, gain).execute();
+        return jukebox.jukeboxControl(subsonicUsername, subsonicPassword, SubsonicHelper.SUBSONIC_API_VERSION, subsonicClientName, action, index, offset, id, gain).execute();
     }
 
     /**
@@ -506,7 +506,7 @@ public class CodeCardController {
         JukeboxStatus toReturn;
         try {
             toReturn =
-              jukebox.jukeboxControl(subsonicUsername, subsonicPassword, "1.16.0", subsonicClientName, "status", null, null, null, null)
+              jukebox.jukeboxControl(subsonicUsername, subsonicPassword, SubsonicHelper.SUBSONIC_API_VERSION, subsonicClientName, "status", null, null, null, null)
                 .execute()
                 .body()
                 .getJukeboxStatus();
