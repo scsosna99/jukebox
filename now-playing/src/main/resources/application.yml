@@ -3,10 +3,10 @@ server:
 
 spring:
   application:
-      name: now-playing
+      name: jukebox-playing
 
 jukebox:
-  clientname: digital-jukebox
+  clientname: jukebox-playing
   credentials:
     username: jukebox
     password: digital99

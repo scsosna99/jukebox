@@ -3,7 +3,7 @@ package com.buddhadata.projects.jukebox.nowplaying;
 import com.buddhadata.projects.jukebox.*;
 import com.buddhadata.projects.jukebox.kafka.producer.ProducerFactory;
 import com.buddhadata.projects.jukebox.subsonic.client.SubsonicHelper;
-import com.buddhadata.projects.jukebox.subsonic.client.services.AlbumSongServices;
+import com.buddhadata.projects.jukebox.subsonic.client.services.AlbumSongService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -11,18 +11,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.subsonic.restapi.Child;
 import org.subsonic.restapi.NowPlayingEntry;
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.jaxb.JaxbConverterFactory;
 
 import javax.annotation.PostConstruct;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.Optional;
 
 /**
@@ -35,7 +30,7 @@ public class NowPlayingHandler {
   /**
    * Retrofit service for making calls to the Subsonic AlbumSong API
    */
-  private AlbumSongServices album;
+  private AlbumSongService album;
 
   /**
    * Track what was the last entry found for what is currently playing.
@@ -51,11 +46,6 @@ public class NowPlayingHandler {
    * Kafka producer to use for each event published.
    */
   private Producer<Long, String> kafkaProducer;
-
-  /**
-   * Global Retrofit instance from which individual services will be created.
-   */
-  private Retrofit retrofit = null;
 
   /**
    * The Kafka instance/cluseter to which we're publishing events
@@ -108,7 +98,7 @@ public class NowPlayingHandler {
 
     try {
       Response<SubsonicResponse> response =
-        album.getNowPlaying(subsonicUsername, subsonicPassword, "1.16.0", subsonicClientName).execute();
+        album.getNowPlaying(subsonicUsername, subsonicPassword, SubsonicHelper.SUBSONIC_API_VERSION, subsonicClientName).execute();
       if (response.isSuccessful()) {
 
         //  Filter for what we expect to be the player name.
@@ -151,7 +141,7 @@ public class NowPlayingHandler {
   @PostConstruct
   public void init() {
     //  Set up everything needed to communicate with subsonic device.
-    album = SubsonicHelper.instance.createService (subsonicHostName, AlbumSongServices.class);
+    album = SubsonicHelper.instance.createService (subsonicHostName, AlbumSongService.class);
 
     //  Create the Kafka producer to use through the life.
     kafkaProducer = (Producer<Long, String>) ProducerFactory.instance.get(kafkaBroker, kafkaClientName, Long.class, String.class);
