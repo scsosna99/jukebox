@@ -12,7 +12,7 @@
   <groupId>com.buddhadata.projects.jukebox</groupId>
   <artifactId>twitter-publish</artifactId>
   <version>0.0.1</version>
-  <name>Jukebox Twitter Publish Service</name>
+  <name>Twitter Publish Service</name>
 
   <parent>
     <groupId>org.springframework.boot</groupId>

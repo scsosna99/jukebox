@@ -7,7 +7,7 @@
   <groupId>com.buddhadata.projects.jukebox</groupId>
   <artifactId>random-client</artifactId>
   <version>0.0.1</version>
-  <name>Random Client</name>
+  <name>Random Number Client</name>
 
   <dependencies>
 

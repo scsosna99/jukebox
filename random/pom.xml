@@ -10,9 +10,9 @@
   </properties>
 
   <groupId>com.buddhadata.projects.jukebox</groupId>
-  <artifactId>random</artifactId>
+  <artifactId>random-service</artifactId>
   <version>0.0.1</version>
-  <name>Random Number Generator</name>
+  <name>Random Number Service</name>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
