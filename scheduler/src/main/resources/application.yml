@@ -6,7 +6,7 @@ spring:
       name: scheduler
 
 jukebox:
-  clientname: jukebox-scheduler
+  clientname: digital-jukebox
   credentials:
     username: jukebox
     password: digital99
