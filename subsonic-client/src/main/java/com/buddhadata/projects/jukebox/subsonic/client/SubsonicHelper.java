@@ -25,6 +25,11 @@ public enum SubsonicHelper {
   private JAXBContext context;
 
   /**
+   * Subsonic API version supported by the client.
+   */
+  public static final String SUBSONIC_API_VERSION = "1.16.0";
+
+  /**
    * Constructor
    */
   private SubsonicHelper() {
@@ -54,6 +59,8 @@ public enum SubsonicHelper {
     //  Return the creted service
     return retrofit.create(type);
   }
+
+  /**
   /**
    * Create the jukebox entry that is going to be published, which is a subset of information about a song.
    * @param entry the song currently playing

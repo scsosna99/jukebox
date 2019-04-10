@@ -10,7 +10,7 @@ import retrofit2.http.Query;
  *
  * @author Scott C Sosna
  */
-public interface AlbumSongServices {
+public interface AlbumSongService {
 
     /**
      * http://www.subsonic.org/pages/api.jsp#getAlbumList
