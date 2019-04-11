@@ -6,7 +6,7 @@ spring:
       name: jukebox-playing
 
 jukebox:
-  clientname: jukebox-playing
+  clientname: digital-jukebox
   credentials:
     username: jukebox
     password: digital99
