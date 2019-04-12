@@ -44,6 +44,12 @@ public class CodeCardController {
     private AlbumSongService album;
 
     /**
+     * flag indicating if Kafka integration is enabled or not
+     */
+    @Value("${jukebox.kafka.enabled:false}")
+    private boolean isKafkaEnabled;
+
+    /**
      * Retrofit service for making calls to the Subsonic Jukebox API
      */
     private JukeboxService jukebox;
@@ -133,10 +139,10 @@ public class CodeCardController {
                 //  If we're just starting a song, we'll go backward otherwise restart the current song.
                 if (status.getCurrentIndex() == 0  || status.getPosition() >= MIN_SECOND_BEFORE_GOING_BACK_TO_SONG_START) {
                     response = jukeboxAction("skip", status.getCurrentIndex(), null, null, null);
-                    SubsonicHelper.instance.createEvent(null, EventTypeEnum.RESTART);
+                    publishEvent (null, EventTypeEnum.RESTART);
                 } else {
                     response = jukeboxAction("skip", status.getCurrentIndex() - 1, null, null, null);
-                    SubsonicHelper.instance.createEvent(null, EventTypeEnum.BACK);
+                    publishEvent (null, EventTypeEnum.BACK);
                 }
 
                 if (response.isSuccessful()) {
@@ -167,7 +173,7 @@ public class CodeCardController {
             if (!response.body().getJukeboxPlaylist().getEntry().isEmpty()) {
                 for (Child one : response.body().getJukeboxPlaylist().getEntry()) {
                     jukebox.jukeboxControl(subsonicUsername, subsonicPassword, SubsonicHelper.SUBSONIC_API_VERSION, subsonicClientName, "remove", 0, null, null, null).execute();
-                    SubsonicHelper.instance.createEvent(one, EventTypeEnum.DEQUEUE);
+                    publishEvent (one, EventTypeEnum.DEQUEUE);
                 }
             }
             toReturn = createResponse (Template.template1, "Playlist Cleared", null, "All songs deleted from jukebox playlist", Icon.ace,
@@ -283,7 +289,7 @@ public class CodeCardController {
                       Response<SubsonicResponse> response = jukeboxAction ("add", null, null, one.getId(), null);
                       if (response.isSuccessful()) {
                           added.addAndGet(1);
-                          SubsonicHelper.instance.createEvent(one, EventTypeEnum.QUEUE);
+                          publishEvent (one, EventTypeEnum.QUEUE);
                       } else {
                           System.out.println ("Failure to add song: " + response.errorBody());
                       }
@@ -328,7 +334,7 @@ public class CodeCardController {
                 if (response.isSuccessful()) {
                     toReturn = nowPlaying();
                     toReturn.setTitle ("Skipped to next song");
-                    SubsonicHelper.instance.createEvent(null, EventTypeEnum.SKIP);
+                    publishEvent (null, EventTypeEnum.SKIP);
                 } else {
                     toReturn = createResponse(Template.template1, "Unable to skip songs", null, response.errorBody().toString(), Icon.fail, Background.code, BackgroundColor.black);
                 }
@@ -358,10 +364,8 @@ public class CodeCardController {
             JukeboxStatus status = jukeboxStatus();
             if (status == null || !status.isPlaying()) {
                 toReturn = startJukebox();
-                SubsonicHelper.instance.createEvent(null, EventTypeEnum.START);
             } else {
                 toReturn = stopJukebox();
-                SubsonicHelper.instance.createEvent(null, EventTypeEnum.STOP);
             }
         } catch (IOException ioe) {
             //  Something really bad happened.
@@ -388,6 +392,7 @@ public class CodeCardController {
         if (response.isSuccessful()) {
             toReturn = createResponse(Template.template1, "Jukebox Started!", null, "Subsonic playback successfully started",
               Icon.champion, Background.code, BackgroundColor.white);
+            publishEvent (null, EventTypeEnum.START);
         } else {
             toReturn = createResponse(Template.template1, "Jukebox Not Started!", null, "Jukebox service returned error " + response.errorBody(),
               Icon.fail, Background.code, BackgroundColor.black);
@@ -410,6 +415,7 @@ public class CodeCardController {
         if (response.isSuccessful()) {
             toReturn = createResponse(Template.template1, "Jukebox Stopped!", null, "Subsonic playback successfully stopped",
               Icon.champion, Background.code, BackgroundColor.white);
+            publishEvent (null, EventTypeEnum.STOP);
         } else {
             toReturn = createResponse(Template.template1, "Jukebox Not Stopped!", null, "Jukebox service returned error " + response.errorBody(),
               Icon.fail, Background.code, BackgroundColor.black);
@@ -429,8 +435,10 @@ public class CodeCardController {
         album = SubsonicHelper.instance.createService(subsonicHostName, AlbumSongService.class);
         jukebox = SubsonicHelper.instance.createService(subsonicHostName, JukeboxService.class);
 
-        //  Create the Kafka producer to use through the life.
-        kafkaProducer = (Producer<Long, String>) ProducerFactory.instance.get(kafkaBroker, kafkaClientName, Long.class, String.class);
+        if (isKafkaEnabled) {
+            //  Create the Kafka producer to use through the life.
+            kafkaProducer = (Producer<Long, String>) ProducerFactory.instance.get(kafkaBroker, kafkaClientName, Long.class, String.class);
+        }
 
         //  The object mapper is thread-safe and serializes the now-playing event into a JSON string.
         om = new ObjectMapper();
@@ -527,13 +535,15 @@ public class CodeCardController {
      */
     private void publishEvent (Child entry,
                                EventTypeEnum eventType) {
-        //  Publish a kafak message with information about the song being played.
-        try {
-            kafkaProducer.send(new ProducerRecord<>(kafkaTopicName, System.currentTimeMillis(),
-              om.writeValueAsString(SubsonicHelper.instance.createEvent(entry, eventType)))).get();
-        } catch (Throwable t) {
-            System.out.println ("Exception while writing out Kafka information: " + t);
-        }
 
+        if (isKafkaEnabled) {
+            //  Publish a kafak message with information about the song being played.
+            try {
+                kafkaProducer.send(new ProducerRecord<>(kafkaTopicName, System.currentTimeMillis(),
+                  om.writeValueAsString(SubsonicHelper.instance.createEvent(entry, eventType)))).get();
+            } catch (Throwable t) {
+                System.out.println("Exception while writing out Kafka information: " + t);
+            }
+        }
     }
 }

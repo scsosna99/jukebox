@@ -15,6 +15,7 @@ jukebox:
   kafka:
     broker: kafka.jukebox.lan:9092
     clientname: code-card
+    enabled: true
     topic: jukebox-events
   randomcnt: 20
 
