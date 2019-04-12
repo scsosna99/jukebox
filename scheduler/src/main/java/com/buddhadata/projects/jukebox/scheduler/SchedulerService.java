@@ -131,9 +131,10 @@ public class SchedulerService {
   @Scheduled (initialDelay=60000, fixedDelay = 30000)
   public void scheduleIfNecessary() {
 
-    //  Determine if there's a need to schedule.
+    //  Determine if there's a need to schedule, either the playlist is empty - most likely indicating no songs were
+    //  ever added - or we've progressed far enough into the playlist the more songs need to be scheduled.
     int songsInPlaylist = getCurrentPlaylist().size();
-    if (songsInPlaylist < minPlaylistSize) {
+    if (songsInPlaylist == 0 || (songsInPlaylist - getPlaylistPosition()) < minPlaylistSize) {
 
       //  Pick a random number of songs to queue.
       int songsToQueue;
@@ -171,6 +172,29 @@ public class SchedulerService {
       //  Something really bad happened, we'll just return an empty collection
       System.out.println ("Exception occurred making call to Subsonic: " + ioe);
       toReturn = Collections.EMPTY_LIST;
+    }
+
+
+    return toReturn;
+  }
+
+
+  /**
+   * The playlist position of the currently playing song.
+   * @return playlist position
+   */
+  private int getPlaylistPosition() {
+
+    int toReturn;
+    try {
+      Response<SubsonicResponse> response =
+        jukebox.jukeboxControl(subsonicUsername, subsonicPassword, SubsonicHelper.SUBSONIC_API_VERSION, subsonicClientName, "status", null, null, null, null).execute();
+        toReturn = response.body().getJukeboxStatus().getCurrentIndex();
+    } catch (IOException ioe) {
+
+      //  Something really bad happened, we'll just return an empty collection
+      System.out.println ("Exception occurred making call to Subsonic: " + ioe);
+      toReturn = 0;
     }
 
 
