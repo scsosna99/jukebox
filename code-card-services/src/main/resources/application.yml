@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-      name: codecard-controller
+      name: codecard
 
 jukebox:
   clientname: digital-jukebox

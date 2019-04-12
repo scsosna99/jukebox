@@ -10,7 +10,7 @@
   </properties>
 
   <groupId>com.buddhadata.projects.jukebox</groupId>
-  <artifactId>code-card-controller</artifactId>
+  <artifactId>codecard</artifactId>
   <version>0.0.1</version>
   <name>CodeCard Services</name>
 
