@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-      name: jukebox-playing
+      name: nowplaying
 
 jukebox:
   clientname: digital-jukebox

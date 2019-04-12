@@ -10,7 +10,7 @@
   </properties>
 
   <groupId>com.buddhadata.projects.jukebox</groupId>
-  <artifactId>now-playing</artifactId>
+  <artifactId>nowplaying</artifactId>
   <version>0.0.1</version>
   <name>Now Playing Service</name>
 
