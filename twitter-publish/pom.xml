@@ -10,7 +10,7 @@
   </properties>
 
   <groupId>com.buddhadata.projects.jukebox</groupId>
-  <artifactId>twitter-publish</artifactId>
+  <artifactId>twitter</artifactId>
   <version>0.0.1</version>
   <name>Twitter Publish Service</name>
 
