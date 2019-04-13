@@ -8,12 +8,15 @@
       <list>
         <option value="$PROJECT_DIR$/subsonic-messages/pom.xml" />
         <option value="$PROJECT_DIR$/subsonic-client/pom.xml" />
-        <option value="$PROJECT_DIR$/code-card-services/pom.xml" />
         <option value="$PROJECT_DIR$/sdr-random/pom.xml" />
         <option value="$PROJECT_DIR$/random/pom.xml" />
         <option value="$PROJECT_DIR$/kafka/pom.xml" />
         <option value="$PROJECT_DIR$/jukebox-messages/pom.xml" />
-        <option value="$PROJECT_DIR$/now-playing/pom.xml" />
+        <option value="$PROJECT_DIR$/scheduler/pom.xml" />
+        <option value="$PROJECT_DIR$/random-client/pom.xml" />
+        <option value="$PROJECT_DIR$/codecard/pom.xml" />
+        <option value="$PROJECT_DIR$/nowplaying/pom.xml" />
+        <option value="$PROJECT_DIR$/twitter/pom.xml" />
       </list>
     </option>
   </component>

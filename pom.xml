@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <properties>
+    <java.version>1.8</java.version>
+    <docker.image.prefix>jukebox</docker.image.prefix>
+    <spring.boot.version>2.0.8.RELEASE</spring.boot.version>
+  </properties>
+
+  <groupId>com.buddhadata.projects.jukebox</groupId>
+  <artifactId>global</artifactId>
+  <version>0.0.1</version>
+  <name>Jukebox Global POM</name>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>codecard</module>
+    <module>jukebox-messages</module>
+    <module>kafka</module>
+    <module>nowplaying</module>
+    <module>random</module>
+    <module>random-client</module>
+    <module>scheduler</module>
+    <module>subsonic-client</module>
+    <module>subsonic-messages</module>
+    <module>twitter</module>
+  </modules>
+</project>

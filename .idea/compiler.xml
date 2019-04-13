@@ -39,7 +39,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="code-card-controller" />
       </profile>
       <profile default="false" name="Annotation profile for messages" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -73,20 +72,66 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="now-playing" />
+      </profile>
+      <profile default="false" name="Annotation profile for twitter-publish" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Annotation profile for scheduler" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="scheduler" />
+      </profile>
+      <profile default="false" name="Annotation profile for random-client" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="random-client" />
+      </profile>
+      <profile default="false" name="Annotation profile for codecard" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="codecard" />
+      </profile>
+      <profile default="false" name="Annotation profile for nowplaying" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="nowplaying" />
+      </profile>
+      <profile default="false" name="Annotation profile for twitter" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="twitter" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="client" target="1.8" />
       <module name="code-card-controller" target="1.8" />
       <module name="code-card-services" target="1.8" />
+      <module name="codecard" target="1.8" />
       <module name="jukebox-messages" target="1.8" />
       <module name="kafka" target="1.8" />
       <module name="messages" target="1.8" />
       <module name="messages (1) (com.buddhadata.projects.jukebox)" target="1.8" />
       <module name="now-playing" target="1.8" />
+      <module name="nowplaying" target="1.8" />
       <module name="random" target="1.8" />
+      <module name="random-client" target="1.8" />
+      <module name="scheduler" target="1.8" />
       <module name="sdr-random" target="1.8" />
+      <module name="twitter" target="1.8" />
+      <module name="twitter-publish" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

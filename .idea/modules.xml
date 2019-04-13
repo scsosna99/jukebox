@@ -3,13 +3,16 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/subsonic-client/client.iml" filepath="$PROJECT_DIR$/subsonic-client/client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/code-card-services/code-card-controller.iml" filepath="$PROJECT_DIR$/code-card-services/code-card-controller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/codecard/codecard.iml" filepath="$PROJECT_DIR$/codecard/codecard.iml" />
       <module fileurl="file://$PROJECT_DIR$/jukebox-messages/jukebox-messages.iml" filepath="$PROJECT_DIR$/jukebox-messages/jukebox-messages.iml" />
       <module fileurl="file://$PROJECT_DIR$/kafka/kafka.iml" filepath="$PROJECT_DIR$/kafka/kafka.iml" />
       <module fileurl="file://$PROJECT_DIR$/subsonic-messages/messages.iml" filepath="$PROJECT_DIR$/subsonic-messages/messages.iml" />
-      <module fileurl="file://$PROJECT_DIR$/now-playing/now-playing.iml" filepath="$PROJECT_DIR$/now-playing/now-playing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/nowplaying/nowplaying.iml" filepath="$PROJECT_DIR$/nowplaying/nowplaying.iml" />
       <module fileurl="file://$PROJECT_DIR$/random/random.iml" filepath="$PROJECT_DIR$/random/random.iml" />
+      <module fileurl="file://$PROJECT_DIR$/random-client/random-client.iml" filepath="$PROJECT_DIR$/random-client/random-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scheduler/scheduler.iml" filepath="$PROJECT_DIR$/scheduler/scheduler.iml" />
       <module fileurl="file://$PROJECT_DIR$/sdr-random/sdr-random.iml" filepath="$PROJECT_DIR$/sdr-random/sdr-random.iml" />
+      <module fileurl="file://$PROJECT_DIR$/twitter/twitter.iml" filepath="$PROJECT_DIR$/twitter/twitter.iml" />
     </modules>
   </component>
 </project>
