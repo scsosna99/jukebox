@@ -6,10 +6,10 @@ To install Docker on Rasperry Pi:
 
 To build/install image:
    mvn clean install dockerfile:build
-   docker save --output codecard-docker.tar jukebox-codecard:latest
-   scp codecard-docker.tar pi@<docker host name>:.
+   docker save --output scheduler-docker.tar jukebox-scheduler:latest
+   scp scheduler-docker.tar pi@<docker host name>:.
    ssh pi@<docker host name>
-   docker load --input codecard-docker.tar
-   docker container create --name codecard --publish 8080:8080  -restart unless-stopped jukebox-codecard:latest
+   docker load --input scheduler-docker.tar
+   docker container create --name scheduler --publish 8080:8080  -restart unless-stopped jukebox-scheduler:latest
    docker container start <container-id>
 

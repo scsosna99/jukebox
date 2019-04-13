@@ -1,0 +1,20 @@
+To install Docker on Rasperry Pi:
+  curl -fsSL get.docker.com -o get-docker.sh && sh get-docker.sh
+  sudo systemctl enable docker
+  sudo gpasswd -a pi docker
+  (https://medium.freecodecamp.org/the-easy-way-to-set-up-docker-on-a-raspberry-pi-7d24ced073ef)
+
+Install Java Certificates
+   (Java RPi) scp /etc/ssl/certs/java/cacerts <docker-pi>:.
+   (Docker RPi) sudo mkdir /etc/ssl/certs/java
+   (Docker RPi) sudo cp cacerts /etc/ssl/certs/java/.
+
+To build/install image:
+   mvn clean install dockerfile:build
+   docker save --output twitter-docker.tar jukebox-twitter:latest
+   scp code-card-docker.tar pi@<docker host name>:.
+   ssh pi@<docker host name>
+   docker load --input twitter-docker.tar
+   docker container create --name twitter --restart unless-stopped -v /etc/ssl/certs/java/:/etc/ssl/certs/java/ jukebox-twitter:latest
+   docker container start <container-id>
+
