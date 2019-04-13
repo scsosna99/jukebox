@@ -238,7 +238,7 @@ public class SchedulerService {
             //  Publish a kafka message with information about the song being played.
             try {
               kafkaProducer.send(new ProducerRecord<>(kafkaTopicName, System.currentTimeMillis(),
-                om.writeValueAsString(SubsonicHelper.instance.createEvent(selected, EventTypeEnum.PLAY)))).get();
+                om.writeValueAsString(SubsonicHelper.instance.createEvent(selected, EventTypeEnum.QUEUE)))).get();
             } catch (Throwable t) {
               System.out.println("Exception while writing out Kafka information: " + t);
             }
