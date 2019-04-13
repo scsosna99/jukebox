@@ -10,6 +10,6 @@ To build/install image:
    scp nowplaying-docker.tar pi@<docker host name>:.
    ssh pi@<docker host name>
    docker load --input nowplaying-docker.tar
-   docker container create --name nowplaying --publish 8080:8080  -restart unless-stopped jukebox-nowplaying:latest
+   docker container create --name nowplaying -restart unless-stopped jukebox-nowplaying:latest
    docker container start <container-id>
 
