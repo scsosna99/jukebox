@@ -138,7 +138,7 @@ public class CodeCardController {
         try {
             //  First, get the status so we know index of current song.
             JukeboxStatus status = SubsonicHelper.instance.jukeboxStatus(jukebox, subsonicUsername, subsonicPassword, subsonicClientName);
-            if (status != null) {
+            if (status != null && status.isPlaying()) {
                 Response<SubsonicResponse> response;
                 //  If we're just starting a song, we'll go backward otherwise restart the current song.
                 if (status.getCurrentIndex() == 0  || status.getPosition() >= MIN_SECOND_BEFORE_GOING_BACK_TO_SONG_START) {
@@ -333,7 +333,7 @@ public class CodeCardController {
         try {
             //  First, get the status so we know index of current song.
             JukeboxStatus status = SubsonicHelper.instance.jukeboxStatus(jukebox, subsonicUsername, subsonicPassword, subsonicClientName);
-            if (status != null) {
+            if (status != null && status.isPlaying()) {
                 Response<SubsonicResponse> response = jukeboxAction("skip", status.getCurrentIndex() + 1, null, null, null);
                 if (response.isSuccessful()) {
                     toReturn = nowPlaying();

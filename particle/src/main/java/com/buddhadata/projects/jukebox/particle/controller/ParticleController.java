@@ -233,7 +233,7 @@ public class ParticleController {
     try {
       //  First, get the status so we know index of current song.
       JukeboxStatus status = SubsonicHelper.instance.jukeboxStatus(jukebox, subsonicUsername, subsonicPassword, subsonicClientName);
-      if (status != null) {
+      if (status != null && status.isPlaying()) {
         Response<SubsonicResponse> response = jukebox.jukeboxControl(subsonicUsername, subsonicPassword, SubsonicHelper.SUBSONIC_API_VERSION, subsonicClientName, "skip", status.getCurrentIndex() + 1, null, null, null).execute();
         if (response.isSuccessful()) {
           publishEvent (null, EventTypeEnum.SKIP);
@@ -241,7 +241,7 @@ public class ParticleController {
           System.out.println ("Error skipping song.");
         }
       } else {
-        System.out.println("Unable to determine jukebox status");
+        System.out.println("Unable to determine jukebox status or jukebox not playing");
       }
     } catch (IOException ioe) {
       System.out.println ("Exception attempting to skip song: " + ioe);
