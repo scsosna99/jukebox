@@ -10,6 +10,6 @@ To build/install image:
    scp codecard-docker.tar pi@<docker host name>:.
    ssh pi@<docker host name>
    docker load --input codecard-docker.tar
-   docker container create --name codecard --publish 8080:8080  -restart unless-stopped jukebox-codecard:latest
+   docker container create --name codecard --publish 8080:8080  --restart unless-stopped jukebox-codecard:latest
    docker container start <container-id>
 

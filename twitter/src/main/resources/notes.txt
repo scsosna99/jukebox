@@ -12,7 +12,7 @@ Install Java Certificates
 To build/install image:
    mvn clean install dockerfile:build
    docker save --output twitter-docker.tar jukebox-twitter:latest
-   scp code-card-docker.tar pi@<docker host name>:.
+   scp twitter-docker.tar pi@<docker host name>:.
    ssh pi@<docker host name>
    docker load --input twitter-docker.tar
    docker container create --name twitter --restart unless-stopped -v /etc/ssl/certs/java/:/etc/ssl/certs/java/ jukebox-twitter:latest

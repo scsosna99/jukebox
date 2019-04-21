@@ -1,1 +1,21 @@
+You'll need to clone and build JParticle yourself, it doesn't exist in any Maven repo.
+$ git clone https://github.com/Walter-Stroebel/JParticle.git
+$ cd JParticle
+$ mvn clean install
+
+Install Java Certificates
+   (Java RPi) scp /etc/ssl/certs/java/cacerts <docker-pi>:.
+   (Docker RPi) sudo mkdir /etc/ssl/certs/java
+   (Docker RPi) sudo cp cacerts /etc/ssl/certs/java/.
+
+To build/install image:
+   mvn clean install dockerfile:build
+   docker save --output particle-docker.tar jukebox-particle:latest
+   scp particle-docker.tar pi@<docker host name>:.
+   ssh pi@<docker host name>
+   docker load --input particle-docker.tar
+   docker container create --name particle --publish 8000:8080 -e jukebox.particle.device=<device_id> -e jukebox.particle.token=<particle_access_token> --restart unless-stopped 7fc4b88f3b80 jukebox-particle:latest
+   docker container start <container-id>
+
+
 curl -X PUT -H "Accept: text/plain" -H "Content-Type: text/plain" http://localhost:8080/particle/message --data-binary "this is a test"

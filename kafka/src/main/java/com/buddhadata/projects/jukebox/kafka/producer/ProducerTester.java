@@ -1,8 +1,10 @@
+/*
+ * Copyright (c) 2019  Scott C. Sosna  ALL RIGHTS RESERVED
+ *
+ */
+
 package com.buddhadata.projects.jukebox.kafka.producer;
 
-import com.buddhadata.projects.jukebox.kafka.consumer.ConsumerFactory;
-import org.apache.kafka.clients.consumer.Consumer;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 

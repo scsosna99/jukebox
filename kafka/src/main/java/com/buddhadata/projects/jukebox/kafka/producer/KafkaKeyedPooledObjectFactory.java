@@ -1,7 +1,11 @@
+/*
+ * Copyright (c) 2019  Scott C. Sosna  ALL RIGHTS RESERVED
+ *
+ */
+
 package com.buddhadata.projects.jukebox.kafka.producer;
 
 import org.apache.commons.pool.BaseKeyedPoolableObjectFactory;
-import org.apache.commons.pool.KeyedObjectPoolFactory;
 import org.apache.commons.pool.KeyedPoolableObjectFactory;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.KafkaConsumer;

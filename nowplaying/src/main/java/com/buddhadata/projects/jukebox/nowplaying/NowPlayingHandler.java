@@ -1,6 +1,11 @@
+/*
+ * Copyright (c) 2019  Scott C. Sosna  ALL RIGHTS RESERVED
+ *
+ */
+
 package com.buddhadata.projects.jukebox.nowplaying;
 
-import com.buddhadata.projects.jukebox.*;
+import com.buddhadata.projects.jukebox.EventTypeEnum;
 import com.buddhadata.projects.jukebox.kafka.producer.ProducerFactory;
 import com.buddhadata.projects.jukebox.subsonic.client.SubsonicHelper;
 import com.buddhadata.projects.jukebox.subsonic.client.services.AlbumSongService;
@@ -14,7 +19,6 @@ import org.springframework.stereotype.Component;
 import org.subsonic.restapi.NowPlayingEntry;
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;

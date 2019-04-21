@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019  Scott C. Sosna  ALL RIGHTS RESERVED
+ *
+ */
+
 package com.buddhadata.projects.jukebox.kafka.consumer;
 
 import com.buddhadata.projects.jukebox.kafka.producer.KafkaKeyedPooledObjectFactory;
@@ -5,7 +10,6 @@ import org.apache.commons.pool.KeyedObjectPool;
 import org.apache.commons.pool.impl.GenericKeyedObjectPool;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.*;
 
 import java.nio.ByteBuffer;
@@ -37,18 +41,36 @@ public enum ConsumerFactory {
 
   /**
    * Get a consumer from the object pool
-   * @param broker
-   * @param groupId
-   * @param topicName
-   * @param keyClazz
-   * @param valueClazz
-   * @return
+   * @param broker the broker hostname which to connect
+   * @param groupId identifies the consumer uniquely
+   * @param topicName the Kafka topic from which messages are being consumed
+   * @param keyClazz the class for the key
+   * @param valueClazz the class for the value
+   * @return Kafka consumer
    */
   public Consumer<?, ?> get (String broker,
                              String groupId,
                              String topicName,
                              Class keyClazz,
                              Class valueClazz) {
+    return get (broker, groupId, topicName, keyClazz, valueClazz, true);
+  }
+  /**
+   * Get a consumer from the object pool
+   * @param broker the broker hostname which to connect
+   * @param groupId identifies the consumer uniquely
+   * @param topicName the Kafka topic from which messages are being consumed
+   * @param keyClazz the class for the key
+   * @param valueClazz the class for the value
+   * @param resetToEarliest should we get all back messages are only the ones going forward?
+   * @return Kafka consumer
+   */
+  public Consumer<?, ?> get (String broker,
+                             String groupId,
+                             String topicName,
+                             Class keyClazz,
+                             Class valueClazz,
+                             boolean resetToEarliest) {
 
     Consumer<?, ?> toReturn = null;
 
@@ -60,7 +82,7 @@ public enum ConsumerFactory {
       props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, getDeserializerClass(keyClazz));
       props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, getDeserializerClass(valueClazz));
       props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
-      props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+      props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, resetToEarliest ? "earliest" : "latest");
 
       //  Create the consumer and stick it in the cache of currently-borrowed objects
       toReturn = pool.borrowObject(props);

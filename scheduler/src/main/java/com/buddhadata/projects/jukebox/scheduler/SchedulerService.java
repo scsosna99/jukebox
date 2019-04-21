@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019  Scott C. Sosna  ALL RIGHTS RESERVED
+ *
+ */
+
 package com.buddhadata.projects.jukebox.scheduler;
 
 import com.buddhadata.projects.jukebox.EventTypeEnum;
@@ -16,14 +21,15 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.subsonic.restapi.Child;
 import org.subsonic.restapi.NowPlayingEntry;
-import org.subsonic.restapi.Songs;
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Tracks what is currently playing on the jukebox and publishes any changes

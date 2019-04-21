@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019  Scott C. Sosna  ALL RIGHTS RESERVED
+ *
+ */
+
 package com.buddhadata.projects.jukebox.codecard;
 
 import org.springframework.boot.CommandLineRunner;

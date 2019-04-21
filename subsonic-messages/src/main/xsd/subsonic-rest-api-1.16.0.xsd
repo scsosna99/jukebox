@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2019  Scott C. Sosna  ALL RIGHTS RESERVED
+  ~
+  -->
+
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:sub="http://subsonic.org/restapi"
            targetNamespace="http://subsonic.org/restapi"

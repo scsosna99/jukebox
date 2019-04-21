@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019  Scott C. Sosna  ALL RIGHTS RESERVED
+ *
+ */
+
 package com.buddhadata.projects.jukebox.random.client.services;
 
 import retrofit2.Call;

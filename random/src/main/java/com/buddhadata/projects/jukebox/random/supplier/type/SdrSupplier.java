@@ -1,12 +1,18 @@
+/*
+ * Copyright (c) 2019  Scott C. Sosna  ALL RIGHTS RESERVED
+ *
+ */
+
 package com.buddhadata.projects.jukebox.random.supplier.type;
 
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.context.Lifecycle;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +20,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.LongSupplier;
-import java.util.stream.Collectors;
 
 /**
  * Random number generator that uses the data received from the software-defined radio - specifically, rtl_fm - to generate

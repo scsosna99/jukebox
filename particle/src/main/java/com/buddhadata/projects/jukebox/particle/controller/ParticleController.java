@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019  Scott C. Sosna  ALL RIGHTS RESERVED
+ *
+ */
+
 package com.buddhadata.projects.jukebox.particle.controller;
 
 import com.buddhadata.projects.jukebox.EventTypeEnum;
@@ -23,7 +28,6 @@ import org.subsonic.restapi.Child;
 import org.subsonic.restapi.JukeboxStatus;
 import org.subsonic.restapi.SubsonicResponse;
 import retrofit2.Response;
-import retrofit2.http.Url;
 
 import javax.annotation.PostConstruct;
 import javax.net.ssl.HttpsURLConnection;
@@ -276,7 +280,7 @@ public class ParticleController {
 
     if (isKafkaEnabled) {
       //  Create the Kafka consumer to be used through the lifetime of this service.
-      kafkaConsumer = (Consumer<Long, String>) ConsumerFactory.instance.get(kafkaBroker, kafkaGroupName, kafkaTopicName, Long.class, String.class);
+      kafkaConsumer = (Consumer<Long, String>) ConsumerFactory.instance.get(kafkaBroker, kafkaGroupName, kafkaTopicName, Long.class, String.class, false);
 
       //  Create the Kafka producer to use through the life.
       kafkaProducer = (Producer<Long, String>) ProducerFactory.instance.get(kafkaBroker, kafkaClientName, Long.class, String.class);
@@ -325,9 +329,8 @@ public class ParticleController {
               switch (event.getEvent()) {
 
                 case PLAY:
-                  String temp = buildSongInfo (event);
-                  System.out.println ("Song changed: " + temp);
-                  particleCloud.publish(EVENT_SONG_CHANGED, temp);
+                  System.out.println ("Song changed: " + event.getSong().getTitle());
+                  particleCloud.publish(EVENT_SONG_CHANGED, event.getSong().getTitle());
                   break;
 
                 case QUEUE:
@@ -372,15 +375,6 @@ public class ParticleController {
       //  Catch anything bad that might happen and just plan on retrying the next time the scheduler kicks this off
       System.out.println ("Exception occurred while processing messages: " + t);
     }
-  }
-
-  /**
-   * Formats the song for which the event was for, very little formatting, just getting something out there.
-   * @param event event received from Kafka
-   * @return the song information in a readable format
-   */
-  private String buildSongInfo (JukeboxEvent event) {
-    return "From the album \"" + event.getSong().getAlbum().getName() + "\", it's \"" + event.getSong().getTitle() + "\" by " + event.getSong().getArtist().getName() + ".";
   }
 
   /**
