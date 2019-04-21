@@ -14,8 +14,8 @@ To build/install image:
    scp particle-docker.tar pi@<docker host name>:.
    ssh pi@<docker host name>
    docker load --input particle-docker.tar
-   docker container create --name particle --publish 8000:8080 -e jukebox.particle.device=<device_id> -e jukebox.particle.token=<particle_access_token> --restart unless-stopped 7fc4b88f3b80 jukebox-particle:latest
+   docker container create --name particle --publish 8000:8080 -e jukebox.particle.device=<device_id> -e jukebox.particle.token=<particle_access_token> --restart unless-stopped -v /etc/ssl/certs/java/:/etc/ssl/certs/java/ jukebox-particle:latest
    docker container start <container-id>
 
 
-curl -X PUT -H "Accept: text/plain" -H "Content-Type: text/plain" http://localhost:8080/particle/message --data-binary "this is a test"
+curl -X PUT -H "Accept: text/plain" -H "Content-Type: text/plain" http://jukebox.buddhadata.com/particle/message --data-binary "this is a test"
