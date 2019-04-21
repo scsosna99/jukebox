@@ -24,9 +24,9 @@ const char *EVENT_VOLUME_CHANGE = "jukebox.volume.change";
 int buttonState;                                // the current reading from the input pin
 int lastButtonState = LOW;                      // the previous reading from the input pin
 unsigned long lastDebounceTime = 0;             // the last time the output pin was toggled
-const int BUTTON_PRESS_LONG = 1500;             // milliseconds indicating a long button push
-const int BUTTON_PRESS_SHORT = 300;             // nukkusecibds indicating a short button push
-const unsigned long BUTTON_DEBOUNCE_DELAY = 100; // the debounce time; increase if the output flickers
+const int BUTTON_PRESS_LONG = 2000;             // milliseconds indicating a long button push
+const int BUTTON_PRESS_SHORT = 500;             // nukkusecibds indicating a short button push
+const unsigned long BUTTON_DEBOUNCE_DELAY = 50; // the debounce time; increase if the output flickers
 const char *BUTTON_WEBHOOK_MUTE  = "jukebox.webhook.mute_unmute";
 const char *BUTTON_WEBHOOK_NEXT  = "jukebox.webhook.next";
 const char *BUTTON_WEBHOOK_START = "jukebox.webhook.start_stop";
