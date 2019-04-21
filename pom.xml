@@ -20,6 +20,7 @@
     <module>jukebox-messages</module>
     <module>kafka</module>
     <module>nowplaying</module>
+    <module>particle</module>
     <module>random</module>
     <module>random-client</module>
     <module>scheduler</module>

@@ -1,7 +1,9 @@
 package com.buddhadata.projects.jukebox.subsonic.client;
 
 import com.buddhadata.projects.jukebox.*;
+import com.buddhadata.projects.jukebox.subsonic.client.services.JukeboxService;
 import org.subsonic.restapi.Child;
+import org.subsonic.restapi.JukeboxStatus;
 import org.subsonic.restapi.NowPlaying;
 import org.subsonic.restapi.NowPlayingEntry;
 import retrofit2.Retrofit;
@@ -9,6 +11,7 @@ import retrofit2.converter.jaxb.JaxbConverterFactory;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.Optional;
 
@@ -56,7 +59,7 @@ public enum SubsonicHelper {
       .addConverterFactory(JaxbConverterFactory.create(context))
       .build();
 
-    //  Return the creted service
+    //  Return the created service
     return retrofit.create(type);
   }
 
@@ -120,4 +123,37 @@ public enum SubsonicHelper {
       .filter(one -> one.getPlayerName().equals(clientName + "-" + userName))
       .findFirst();
   }
+
+  /**
+   */
+  /**
+   * A number of usages for the status, so centralize it for all usages.
+   * @param jukebox interface for jukebox service
+   * @param userName subsonic authentication user name
+   * @param password subsonic authentication password
+   * @param clientName subsonic client name
+   * @return current status of Jukebox, or null if unable to retrieve status from Subsonic.
+   */
+  public JukeboxStatus jukeboxStatus(JukeboxService jukebox,
+                                      String userName,
+                                      String password,
+                                      String clientName) {
+
+    JukeboxStatus toReturn;
+    try {
+      toReturn =
+        jukebox.jukeboxControl(userName, password, SubsonicHelper.SUBSONIC_API_VERSION, clientName, "status", null, null, null, null)
+          .execute()
+          .body()
+          .getJukeboxStatus();
+
+    } catch (IOException ioe) {
+      System.out.println ("Exception attempting to get status: " + ioe);
+      toReturn = null;
+    }
+
+
+    return toReturn;
+  }
+
 }

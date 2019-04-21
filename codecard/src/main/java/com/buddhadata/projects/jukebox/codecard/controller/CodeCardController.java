@@ -33,7 +33,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Controller with RESTful calls for actions triggerd by pressing buttons on the Oracle Code Card.
  */
-
 @RestController
 @RequestMapping("codecard")
 public class CodeCardController {
@@ -133,7 +132,7 @@ public class CodeCardController {
         CodeCardResponse toReturn;
         try {
             //  First, get the status so we know index of current song.
-            JukeboxStatus status = jukeboxStatus();
+            JukeboxStatus status = SubsonicHelper.instance.jukeboxStatus(jukebox, subsonicUsername, subsonicPassword, subsonicClientName);
             if (status != null) {
                 Response<SubsonicResponse> response;
                 //  If we're just starting a song, we'll go backward otherwise restart the current song.
@@ -199,7 +198,7 @@ public class CodeCardController {
         CodeCardResponse toReturn;
         try {
             //  Get the current status of the jukebox, which includes the gain.
-            JukeboxStatus status = jukeboxStatus();
+            JukeboxStatus status = SubsonicHelper.instance.jukeboxStatus(jukebox, subsonicUsername, subsonicPassword, subsonicClientName);;
             if (status != null) {
 
                 //  Determine what the new gain should be
@@ -328,7 +327,7 @@ public class CodeCardController {
         CodeCardResponse toReturn;
         try {
             //  First, get the status so we know index of current song.
-            JukeboxStatus status = jukeboxStatus();
+            JukeboxStatus status = SubsonicHelper.instance.jukeboxStatus(jukebox, subsonicUsername, subsonicPassword, subsonicClientName);
             if (status != null) {
                 Response<SubsonicResponse> response = jukeboxAction("skip", status.getCurrentIndex() + 1, null, null, null);
                 if (response.isSuccessful()) {
@@ -361,7 +360,7 @@ public class CodeCardController {
         CodeCardResponse toReturn;
         try {
             //  Determine current state of jukebox.
-            JukeboxStatus status = jukeboxStatus();
+            JukeboxStatus status = SubsonicHelper.instance.jukeboxStatus(jukebox, subsonicUsername, subsonicPassword, subsonicClientName);
             if (status == null || !status.isPlaying()) {
                 toReturn = startJukebox();
             } else {
@@ -503,29 +502,6 @@ public class CodeCardController {
                                               String id,
                                               Double gain) throws IOException {
         return jukebox.jukeboxControl(subsonicUsername, subsonicPassword, SubsonicHelper.SUBSONIC_API_VERSION, subsonicClientName, action, index, offset, id, gain).execute();
-    }
-
-    /**
-     * A number of usages for the status, so centralize it for all usages.
-     * @return current status of Jukebox, or null if unable to retrieve status from Subsonic.
-     */
-    private JukeboxStatus jukeboxStatus() {
-
-        JukeboxStatus toReturn;
-        try {
-            toReturn =
-              jukebox.jukeboxControl(subsonicUsername, subsonicPassword, SubsonicHelper.SUBSONIC_API_VERSION, subsonicClientName, "status", null, null, null, null)
-                .execute()
-                .body()
-                .getJukeboxStatus();
-
-        } catch (IOException ioe) {
-            System.out.println ("Exception attempting to get status: " + ioe);
-            toReturn = null;
-        }
-
-
-        return toReturn;
     }
 
     /**

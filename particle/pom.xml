@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <properties>
+    <java.version>1.8</java.version>
+    <docker.image.prefix>jukebox</docker.image.prefix>
+    <spring.boot.version>2.0.8.RELEASE</spring.boot.version>
+  </properties>
+
+  <groupId>com.buddhadata.projects.jukebox</groupId>
+  <artifactId>particle</artifactId>
+  <version>0.0.1</version>
+  <name>Particle Controller</name>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.0.8.RELEASE</version>
+  </parent>
+
+  <dependencies>
+
+    <!-- Subsonic services as Retrofit calls -->
+    <dependency>
+      <groupId>com.buddhadata.projects.jukebox</groupId>
+      <artifactId>subsonic-client</artifactId>
+      <version>1.16.0</version>
+    </dependency>
+
+    <!-- Utility functionality for Kafka publishing -->
+    <dependency>
+      <groupId>com.buddhadata.projects.jukebox</groupId>
+      <artifactId>kafka</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+
+    <!-- Jukebox messages -->
+    <dependency>
+      <groupId>com.buddhadata.projects.jukebox</groupId>
+      <artifactId>jukebox-messages</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+
+    <!-- JParticle dependency not in any public Maven repository, so clone/build locally
+	          https://github.com/Walter-Stroebel/JParticle -->
+    <dependency>
+      <groupId>nl.infcomtec</groupId>
+      <artifactId>JParticle</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
+
+    <!-- Basic Spring boot used for application. -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+  </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring.boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>Finchley.RELEASE</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <!-- Goal not associated with execution, so to deploy locally use 'mvn clean install dockerfile:build' -->
+        <groupId>com.spotify</groupId>
+        <artifactId>dockerfile-maven-plugin</artifactId>
+        <version>1.3.6</version>
+        <configuration>
+          <repository>${docker.image.prefix}-${project.artifactId}</repository>
+          <buildArgs>
+            <application>${project.build.finalName}</application>
+          </buildArgs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
