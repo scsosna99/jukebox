@@ -6,6 +6,12 @@ spring:
       name: twitter
 
 jukebox:
+  clientname: digital-jukebox
+  credentials:
+    username: jukebox
+    password: digital99
+  hostname: 10.10.9.27:4040
+#  hostname: subsonic.jukebox.lan:4040
   kafka:
     broker: kafka.jukebox.lan:9092
 #    broker: 10.10.9.8:9092

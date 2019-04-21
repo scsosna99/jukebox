@@ -21,13 +21,6 @@
   </parent>
 
   <dependencies>
-    <!-- Subsonic services as Retrofit calls -->
-    <dependency>
-      <groupId>com.buddhadata.projects.jukebox</groupId>
-      <artifactId>subsonic-client</artifactId>
-      <version>1.16.0</version>
-    </dependency>
-
     <!-- Utility functionality for Kafka publishing -->
     <dependency>
       <groupId>com.buddhadata.projects.jukebox</groupId>
