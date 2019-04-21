@@ -21,15 +21,15 @@ const char *EVENT_SONG_CHANGED  = "jukebox.song.changed";
 const char *EVENT_VOLUME_CHANGE = "jukebox.volume.change";
 
 // Variables to keep context for button pushes
-int buttonState;                                // the current reading from the input pin
 int lastButtonState = LOW;                      // the previous reading from the input pin
-unsigned long lastDebounceTime = 0;             // the last time the output pin was toggled
-const int BUTTON_PRESS_LONG = 2000;             // milliseconds indicating a long button push
-const int BUTTON_PRESS_SHORT = 500;             // nukkusecibds indicating a short button push
-const unsigned long BUTTON_DEBOUNCE_DELAY = 50; // the debounce time; increase if the output flickers
+unsigned long lastDebounceTime = 0xFFFF;             // the last time the output pin was toggled
 const char *BUTTON_WEBHOOK_MUTE  = "jukebox.webhook.mute_unmute";
 const char *BUTTON_WEBHOOK_NEXT  = "jukebox.webhook.next";
 const char *BUTTON_WEBHOOK_START = "jukebox.webhook.start_stop";
+const unsigned long BUTTON_DEBOUNCE_DELAY = 50; // the debounce time; increase if the output flickers
+const unsigned long BUTTON_PRESS_LONG = 1500;   // milliseconds indicating a long button push
+const unsigned long BUTTON_PRESS_MAX = 5000;    // if over the max, assume button is stuck
+const unsigned long BUTTON_PRESS_SHORT = 500;   // nukkusecibds indicating a short button push
 
 //  Potentiometer variables to track when changes occur.
 boolean potChangePublished = true;          //  has the most recent potentiometer change been published?
@@ -308,10 +308,9 @@ int checkForButtonPress () {
         // delay, so take it as the actual current state:
 
         // if the button state has changed:
-        if (reading != buttonState) {
+        if (reading != lastButtonState) {
             Serial.printlnf("Button changed: %d", reading);
-            buttonState = reading;
-            if (buttonState == 1) {
+            if (reading == 1) {
                 determineButtonAction (delay);
             }
         }
@@ -356,13 +355,16 @@ void checkForChangedPotentiometer() {
  **/
 void determineButtonAction (const unsigned long delay) {
 
-    Serial.printlnf("%d", delay);
-    if (delay < BUTTON_PRESS_SHORT) {
-        buttonActionShort();
-    } else if (delay > BUTTON_PRESS_LONG) {
-        buttonActionLong();
+    if (delay < BUTTON_PRESS_MAX) {
+        if (delay < BUTTON_PRESS_SHORT) {
+            buttonActionShort();
+        } else if (delay > BUTTON_PRESS_LONG) {
+            buttonActionLong();
+        } else {
+            buttonActionNormal();
+        }
     } else {
-        buttonActionNormal();
+        Serial.println("no action, max button delay");
     }
 }
 
