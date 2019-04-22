@@ -114,6 +114,13 @@
         <processorPath useClasspath="true" />
         <module name="twitter" />
       </profile>
+      <profile default="false" name="Annotation profile for particle" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="particle" />
+      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="client" target="1.8" />
@@ -126,6 +133,7 @@
       <module name="messages (1) (com.buddhadata.projects.jukebox)" target="1.8" />
       <module name="now-playing" target="1.8" />
       <module name="nowplaying" target="1.8" />
+      <module name="particle" target="1.8" />
       <module name="random" target="1.8" />
       <module name="random-client" target="1.8" />
       <module name="scheduler" target="1.8" />
